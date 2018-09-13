@@ -3,9 +3,6 @@
 from omxplayer.player import OMXPlayer
 from time import sleep
 
-from omxplayer.player import OMXPlayer
-from time import sleep
-
 AUDIO_PATH_MLP = "/opt/02_Planets_Part1_Treatment.mlp"
 AUDIO_PATH_TEST = "/opt/demo_5ch/ChID-BLITS-EBU-Narration441-16b.wav"
 
