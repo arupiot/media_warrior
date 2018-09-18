@@ -12,6 +12,7 @@ CORS(app)
 
 AUDIO_PATH_MLP = "/opt/02_Planets_Part1_Treatment.mlp"
 AUDIO_PATH_TEST = "/opt/demo_5ch/ChID-BLITS-EBU-Narration441-16b.wav"
+# player = OMXPlayer(AUDIO_PATH_MLP, args=['--layout', '5.1', '-w', '-o', 'hdmi'])
 
 @app.route("/")
 def hello():
@@ -19,18 +20,16 @@ def hello():
 
 class GetTrackList(Resource):
   def get(self):
-      # player = OMXPlayer(AUDIO_PATH_MLP, args=['--layout', '5.1', '-w', '-o', 'hdmi'])
+     
       return jsonify({'text':'No tracks found!'})     
 
 class Play(Resource):
     def get(self):
-        # player = OMXPlayer(AUDIO_PATH_MLP, args=['--layout', '5.1', '-w', '-o', 'hdmi'])
         return jsonify({'text':'Playing funky music'}) 
 
 
 class Stop(Resource):
     def get(self):
-        # player = OMXPlayer(AUDIO_PATH_MLP, args=['--layout', '5.1', '-w', '-o', 'hdmi'])
         return jsonify({'text':'Stopping funky music'}) 
 
 
