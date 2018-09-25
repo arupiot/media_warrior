@@ -2,8 +2,8 @@
 # (but) resin images have qemu built in anyway...
 # sudo docker run -v /usr/bin/qemu-arm-static:/usr/bin/qemu-arm-static --rm -ti resin/rpi-raspbian
 
-# (probably) get resin.io rpi image
-FROM resin/rpi-raspbian
+# (probably) get resin.io rpi image with preinstalled node
+FROM resin/resin/raspberry-pi-node
 
 RUN [ "cross-build-start" ]
 
@@ -34,9 +34,10 @@ RUN apt-get install python3
 RUN mkdir /opt/media_warrior
 RUN apt-get install git
 RUN git clone --single-branch -b develop https://github.com/arupiot/media_warrior.git /opt/media_warrior
-RUN cd /opt/media_warrior/mw_serve/mw-serve
+WORKDIR /opt/media_warrior/mw_serve/mw-serve
 
 # build angular app
+EXPOSE 4200/tcp
 RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 RUN sudo apt-get install -y nodejs
 RUN node -v
