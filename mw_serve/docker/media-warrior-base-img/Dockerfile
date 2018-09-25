@@ -1,5 +1,5 @@
 # sample build command: sudo docker build -t media-warrior-base .
-# sample run command: sudo docker run -d -p 5002:5002 media-warrior-base-run
+# sample run command: sudo docker run -d -p 5002:5002 media-warrior-base
 # running resin.io rpi image on ubuntu with qemu
 # (but) resin images have qemu built in anyway...
 # sudo docker run -v /usr/bin/qemu-arm-static:/usr/bin/qemu-arm-static --rm -ti resin/rpi-raspbian
@@ -14,6 +14,8 @@ RUN [ "cross-build-start" ]
 RUN apt-get update 
 RUN sudo apt-get dist-upgrade
 
+# install app-utils? (since apt-get keeps complaining)
+
 # install python 3.x
 # install packages needed for Flask/omxplayer etc
 
@@ -24,10 +26,13 @@ RUN pip3 install -U flask-cors
 RUN pip3 install Flask-RESTful
 RUN pip3 install Flask-Jsonpify
 
-
 # install everything needed to set up the 'Pi as a hotspot
 
 # install rclone
+
+# sync with gdrive
+
+# set up rclone cron job
 
 # get gdrive credentials
 
