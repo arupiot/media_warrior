@@ -17,6 +17,7 @@ RUN sudo apt-get dist-upgrade
 # install packages needed for Flask/omxplayer etc
 
 RUN apt-get install python3
+RUN pip3 install flask
 
 
 # install everything needed to set up the 'Pi as a hotspot
@@ -35,11 +36,14 @@ RUN apt-get install python3
 RUN mkdir /opt/media_warrior
 RUN apt-get install git
 RUN git clone --single-branch -b develop https://github.com/arupiot/media_warrior.git /opt/media_warrior
-WORKDIR /opt/media_warrior/mw_serve/mw-serve
 
 # don't build angular app on the pi, it takes too long
 # we serve the dist from the flask app
 
 # serve Flask from 5002
+WORKDIR /opt/media_warrior/mw_serve/flask
+CMD [ "python3", "omx-player-service.py" ]
+
+EXPOSE 5002
 
 RUN [ "cross-build-end" ]
