@@ -1,4 +1,5 @@
 # sample build command: sudo docker build -t media-warrior-base .
+# sample run command: sudo docker run -d -p 5002:5002 media-warrior-base-run
 # running resin.io rpi image on ubuntu with qemu
 # (but) resin images have qemu built in anyway...
 # sudo docker run -v /usr/bin/qemu-arm-static:/usr/bin/qemu-arm-static --rm -ti resin/rpi-raspbian
@@ -17,7 +18,11 @@ RUN sudo apt-get dist-upgrade
 # install packages needed for Flask/omxplayer etc
 
 RUN apt-get install python3
+RUN apt-get -y install python3-pip
 RUN pip3 install flask
+RUN pip3 install -U flask-cors
+RUN pip3 install Flask-RESTful
+RUN pip3 install Flask-Jsonpify
 
 
 # install everything needed to set up the 'Pi as a hotspot
@@ -42,7 +47,8 @@ RUN git clone --single-branch -b develop https://github.com/arupiot/media_warrio
 
 # serve Flask from 5002
 WORKDIR /opt/media_warrior/mw_serve/flask
-CMD [ "python3", "omx-player-service.py" ]
+ENTRYPOINT ["python3"]
+CMD ["omx-player-service.py"]
 
 EXPOSE 5002
 
