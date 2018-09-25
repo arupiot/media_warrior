@@ -1,9 +1,10 @@
+# sample build command: sudo docker build -t media-warrior-base .
 # running resin.io rpi image on ubuntu with qemu
 # (but) resin images have qemu built in anyway...
 # sudo docker run -v /usr/bin/qemu-arm-static:/usr/bin/qemu-arm-static --rm -ti resin/rpi-raspbian
 
 # (probably) get resin.io rpi image with preinstalled node
-FROM resin/resin/raspberry-pi-node
+FROM resin/raspberry-pi-node
 
 RUN [ "cross-build-start" ]
 
@@ -36,16 +37,8 @@ RUN apt-get install git
 RUN git clone --single-branch -b develop https://github.com/arupiot/media_warrior.git /opt/media_warrior
 WORKDIR /opt/media_warrior/mw_serve/mw-serve
 
-# build angular app
-EXPOSE 4200/tcp
-RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-RUN sudo apt-get install -y nodejs
-RUN node -v
-RUN npm -v
-RUN npm install -g @angular/cli
-RUN npm install
-RUN npm run build
-RUN npm run start
+# don't build angular app on the pi, it takes too long
+# we serve the dist from the flask app
 
 # serve Flask from 5002
 
