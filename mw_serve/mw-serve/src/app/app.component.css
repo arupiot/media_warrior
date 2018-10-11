@@ -1,0 +1,61 @@
+#mainBox
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100vh;
+
+    text-transform: uppercase;
+    color: white;
+    
+    
+    background: #000000;
+    border: 0.9em solid #ed028c;
+    box-sizing: border-box;
+
+    font-family: 'Lush';
+    src: url('./fonts/Lush.ttf') format('truetype');
+    font-weight: bold;
+}
+
+#mainBox .item
+{
+    display: flex;
+    justify-content: center;
+    width: 80vw;
+    height: 8vh;
+    text-align: center;
+    font-size: 2.5em;
+}
+
+
+.item .text 
+{
+    margin-top: 0.3em;
+    height: 1em;
+}
+
+
+.item .link
+{
+    text-decoration: none;
+}
+
+#mainBox > :nth-child(odd)
+{
+    background: #29143b;
+}
+#mainBox > :nth-child(even)
+{
+    background: #600039;
+}
+
+@font-face
+{
+    font-family: 'Lush';
+    src: url('./fonts/Lush.ttf') format('truetype');
+    font-weight: bold;
+}

@@ -1,8 +1,17 @@
-<div style="text-align:center">
-  <h1>
-    {{ title }}
-  </h1>
-  <button (click)="onPlayClicked()">Play</button>
-  <button (click)="onStopClicked()">Stop</button>
+<div id="mainBox">
+ 
+    <div *ngFor="let datum of serverData">
+      <div class="item">
+        <div class="text">{{ datum }}</div>
+      </div>
+      
+      <!-- <div class="item">
+        <a href="" class="link">{{ datum }}</a>
+      </div> -->
+
+      <!-- <app-track></app-track> -->
+
+    </div>
+  <!-- </ul> -->
 </div>
 
