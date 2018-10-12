@@ -27,28 +27,17 @@ def serve(path):
 
 class GetTrackList(Resource):
   def get(self):
-      trackArray = ["karma", \
-                    "the spell", \
-                    "the sound bath", \
-                    "the planets", \
-                    "tales of bath", \
-                    "the good hour", \
-                    "tailor made", \
-                    "synaesthsia", \
-                    "hard days night", \
-                    "the comforter", \
-                    "validation facial"]
-    #   trackList = { "track1":"KArmA", \
-    #                 "track2":"ThE SpElL", \
-    #                 "track3":"THe sOUnD BaTh", \
-    #                 "track4":"ThE PlANEtS", \
-    #                 "track5":"tALEs Of BaTH", \
-    #                 "track6":"ThE gOOd HoUR", \
-    #                 "track7":"TaIlOR MaDE", \
-    #                 "track8":"SYnAEsTHeSIA", \
-    #                 "track9":"HArD dAYS nIGHT", \
-    #                 "track10":"THe CoMFOrTER", \
-    #                 "track11":"VAlIdATiON fACiAL" }
+      trackArray = [ {"name" : "karma", "id":"0"}, \
+                    {"name":"the spell", "id":"1"}, \
+                    {"name":"the sound bath", "id":"2"}, \
+                    {"name":"the planets", "id":"3"}, \
+                    {"name":"tales of bath", "id":"4"}, \
+                    {"name":"the good hour", "id":"5"}, \
+                    {"name":"tailor made", "id":"6"}, \
+                    {"name":"synaesthsia", "id":"7"}, \
+                    {"name":"hard days night", "id":"8"}, \
+                    {"name":"the comforter", "id":"9"}, \
+                    {"name":"validation facial", "id":"10"}]
       return jsonify(trackArray)     
 
 class Play(Resource):

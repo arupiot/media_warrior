@@ -1,17 +1,8 @@
-.error
-{
-    width: 100%;
-    text-align: center;
-    margin-top: 45vh;
-    font-size: 2em;
-}
-
 #mainBox
 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
 
     width: 100%;
     height: 100vh;
@@ -28,37 +19,30 @@
     src: url('./../../fonts/Lush.ttf') format('truetype');
     font-weight: bold;
 }
-
-#mainBox .item
+#mainBox .flexBox
 {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    width: 80vw;
-    height: 8vh;
-    text-align: center;
+    width: 100%;
+    height: 100vh;
     font-size: 2.5em;
 }
-
-
-.item .text 
+#mainBox .flexBox > :nth-child(1n)
 {
-    margin-top: 0.3em;
-    height: 1em;
+    width: 80vw;
+    height: 14vh;
+    text-align: center;
+    border: 0.1em solid white;
+    box-sizing: border-box;
+    padding-top: 0.95em;
+    margin-top: 0.4em;
 }
-
-
-.item .link
+#mainBox .image
 {
-    text-decoration: none;
-}
-
-#mainBox > :nth-child(odd)
-{
-    background: #29143b;
-}
-#mainBox > :nth-child(even)
-{
-    background: #600039;
+    margin-top: 5vh;
+    transform: scale(2);
 }
 
 @font-face

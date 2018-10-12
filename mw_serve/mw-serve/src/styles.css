@@ -5,3 +5,8 @@ body {
     border: 0;
     padding: 0;
 }
+a 
+{
+    color: white;
+    text-decoration: none; /* no underline */
+}

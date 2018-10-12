@@ -1,21 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TrackSelectorComponent } from './track-selector.component';
+import { TrackControlComponent } from './track-control.component';
 
-describe('TrackSelectorComponent', () => {
-  let component: TrackSelectorComponent;
-  let fixture: ComponentFixture<TrackSelectorComponent>;
-  console.log("track selector");
+describe('TrackControlComponent', () => {
+  let component: TrackControlComponent;
+  let fixture: ComponentFixture<TrackControlComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TrackSelectorComponent ]
+      declarations: [ TrackControlComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TrackSelectorComponent);
+    fixture = TestBed.createComponent(TrackControlComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

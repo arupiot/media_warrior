@@ -1,21 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TrackSelectorComponent } from './track-selector.component';
+import { SplashScreenComponent } from './splash-screen.component';
 
-describe('TrackSelectorComponent', () => {
-  let component: TrackSelectorComponent;
-  let fixture: ComponentFixture<TrackSelectorComponent>;
-  console.log("track selector");
+describe('SplashScreenComponent', () => {
+  let component: SplashScreenComponent;
+  let fixture: ComponentFixture<SplashScreenComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TrackSelectorComponent ]
+      declarations: [ SplashScreenComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TrackSelectorComponent);
+    fixture = TestBed.createComponent(SplashScreenComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
