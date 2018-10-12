@@ -1,17 +1,13 @@
-<div id="mainBox">
- 
+<div *ngIf="serverData != null; else elseBlock">
+  <div id="mainBox">
     <div *ngFor="let datum of serverData">
       <div class="item">
         <div class="text">{{ datum }}</div>
       </div>
-      
-      <!-- <div class="item">
-        <a href="" class="link">{{ datum }}</a>
-      </div> -->
-
-      <!-- <app-track></app-track> -->
-
     </div>
-  <!-- </ul> -->
+  </div>
+      <!-- <app-track></app-track> -->
 </div>
-
+<ng-template #elseBlock>
+  <div class="error">{{ errorResponse.message }}</div>
+</ng-template>

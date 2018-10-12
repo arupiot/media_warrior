@@ -1,3 +1,11 @@
+.error
+{
+    width: 100%;
+    text-align: center;
+    margin-top: 45vh;
+    font-size: 2em;
+}
+
 #mainBox
 {
     display: flex;

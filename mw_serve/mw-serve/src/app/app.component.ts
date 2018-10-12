@@ -8,16 +8,23 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AppComponent implements OnInit {
   title = 'mw_serve';
-  serverData: JSON;
+  serverData: JSON = null;
+  errorResponse = "";
 
   constructor(private httpClient: HttpClient) {
   }
 
   ngOnInit () {
-    this.httpClient.get('http://127.0.0.1:5002/get-track-list').subscribe(data => {
+    this.httpClient.get('http://127.0.0.1:5002/get-track-list').subscribe(
+      data => {
       this.serverData = data as JSON;
       console.log(this.serverData);
-    });
+      },
+      err => {
+        this.errorResponse = err;
+        console.log(this.errorResponse);
+      }
+    );
   }
 
   onPlayClicked() {
