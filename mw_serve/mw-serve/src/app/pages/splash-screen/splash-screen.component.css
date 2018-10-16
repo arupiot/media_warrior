@@ -44,10 +44,3 @@
     margin-top: 5vh;
     transform: scale(2);
 }
-
-@font-face
-{
-    font-family: 'Lush';
-    src: url('./../../fonts/Lush.ttf') format('truetype');
-    font-weight: bold;
-}

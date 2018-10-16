@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class TrackSelectorComponent implements OnInit {
   title = 'mw_serve';
   serverData: JSON = null;
-  errorResponse = "";
+  errorResponse = '';
 
   constructor(private httpClient: HttpClient) {
   }
@@ -18,7 +18,7 @@ export class TrackSelectorComponent implements OnInit {
     this.httpClient.get('http://127.0.0.1:5002/get-track-list').subscribe(
       data => {
       this.serverData = data as JSON;
-      console.log(this.serverData);
+      console.log('Synced tracks: ', data);
       },
       err => {
         this.errorResponse = err;
