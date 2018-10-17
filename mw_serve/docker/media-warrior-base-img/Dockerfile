@@ -25,6 +25,7 @@ RUN pip3 install flask
 RUN pip3 install -U flask-cors
 RUN pip3 install Flask-RESTful
 RUN pip3 install Flask-Jsonpify
+RUN pip3 install flask-inputs
 
 # install everything needed to set up the 'Pi as a hotspot
 
