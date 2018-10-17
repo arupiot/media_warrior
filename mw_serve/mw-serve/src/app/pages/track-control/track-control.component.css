@@ -1,0 +1,33 @@
+#mainBox .trackNameBox
+{
+    margin-top: 1em;
+    height: 8vh;
+    width: 80vw;
+    text-align: center;
+    font-size: 2.5em;
+    background: #570033;
+}
+.trackNameBox .trackNameText
+{
+    padding: 0.3em;
+}
+#mainBox .treatment
+{
+    margin: 7em;
+
+    height: 5em;
+    width: 80vw;
+    text-align: center;
+    font-size: 2.5em;
+    background: #5d0037;
+
+    border: 0.2em solid white;
+}
+.treatment .playback
+{
+    border: 0.1em solid white;
+    height: 0.5em;
+    width: 60vw;
+    margin-top: 1.5em;
+    margin-left: 0.8em;
+}

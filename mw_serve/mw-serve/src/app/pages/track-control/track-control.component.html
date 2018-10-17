@@ -1,5 +1,10 @@
 <div id="mainBox">
-  <div>
-    {{serverData | async}}
+  <div class="trackNameBox">
+    <div class="trackNameText">{{serverData | async}}</div>
+  </div>
+  <div class="treatment">
+    Treatment
+    <mat-icon>play_arrow</mat-icon>
+    <div class="playback"></div>
   </div>
 </div>
