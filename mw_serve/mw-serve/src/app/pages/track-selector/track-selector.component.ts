@@ -15,7 +15,9 @@ export class TrackSelectorComponent implements OnInit {
   }
 
   ngOnInit () {
-    this.httpClient.get('http://127.0.0.1:5002/get-track-list').subscribe(
+    // console.log(window.location.hostname);
+
+    this.httpClient.get('http://' + window.location.hostname + ':5002/get-track-list').subscribe(
       data => {
       this.serverData = data as JSON;
       console.log('Synced tracks: ', data);
