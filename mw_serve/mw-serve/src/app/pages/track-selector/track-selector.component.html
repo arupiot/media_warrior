@@ -1,0 +1,17 @@
+<!-- <router-outlet></router-outlet> -->
+
+<div *ngIf="serverData != null; else elseBlock">
+  <div id="mainBox">
+    <div *ngFor="let datum of serverData">
+      <a routerLink="/player">
+        <div class="item">
+          <div class="text">{{ datum.name }}</div>
+        </div>
+      </a>
+    </div>
+  </div>
+  <!-- <app-track></app-track> -->
+</div>
+<ng-template #elseBlock>
+  <div class="error">{{ errorResponse.message }}</div>
+</ng-template>
