@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-track-control',
@@ -10,24 +11,30 @@ export class TrackControlComponent implements OnInit {
 
   serverData: JSON = null;
   errorResponse = '';
+  id: number;
+  private sub: any;
+  
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private route: ActivatedRoute, 
+              private httpClient: HttpClient
+              ) { }
 
-  ngOnInit() {
-  }
-
-  onPlayClicked() {
-    this.httpClient.get('http://127.0.0.1:5002/play').subscribe(data => {
+  ngOnInit() 
+  {
+    this.httpClient.get('http://127.0.0.1:5002/get-track-list').subscribe(
+      data => {
       this.serverData = data as JSON;
-      console.log(this.serverData);
-    });
-  }
+      console.log('Synced tracks: ', data);
+      },
+      err => {
+        this.errorResponse = err;
+        console.log(this.errorResponse);
+      }
+    );
 
-  onStopClicked() {
-    this.httpClient.get('http://127.0.0.1:5002/stop').subscribe(data => {
-      this.serverData = data as JSON;
-      console.log(this.serverData);
-    });
+    this.sub = this.route.params.subscribe(params => {
+      this.id = +(params['id']);
+    })
+    console.log(this.id);    
   }
-
 }
