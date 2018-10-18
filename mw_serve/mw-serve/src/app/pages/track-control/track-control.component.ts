@@ -37,7 +37,13 @@ export class TrackControlComponent implements OnInit {
         this.errorResponse = err;
       }
     )
-    
-    
+  }
+  playMusic()
+  {
+    this.getTracksService.playSingleTrack(this.id).subscribe(
+      (data) =>{
+        console.log(data);
+      }
+      );
   }
 }

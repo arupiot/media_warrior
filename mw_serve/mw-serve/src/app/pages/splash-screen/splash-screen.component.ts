@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GetTracksService } from '../services/get-tracks.service';
 
 @Component({
   selector: 'app-splash-screen',
@@ -7,9 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SplashScreenComponent implements OnInit {
 
-  constructor() { }
+  constructor(private getTracksService: GetTracksService) { }
 
   ngOnInit() {
   }
-
 }

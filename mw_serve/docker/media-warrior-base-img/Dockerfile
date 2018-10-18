@@ -27,6 +27,8 @@ RUN pip3 install Flask-RESTful
 RUN pip3 install Flask-Jsonpify
 RUN pip3 install flask-inputs
 
+RUN pip3 install omxplayer-wrapper
+
 # install everything needed to set up the 'Pi as a hotspot
 
 # install rclone
