@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
+import { GetTracksService } from '../services/get-tracks.service';
+import { of, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-track-control',
@@ -8,26 +10,34 @@ import { HttpClient } from '@angular/common/http';
 })
 export class TrackControlComponent implements OnInit {
 
-  serverData: JSON = null;
+  serverData: Observable<any>;
   errorResponse = '';
+  id: number;
+  private sub: any;
+  
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private route: ActivatedRoute, 
+              private getTracksService: GetTracksService
+              ) { }
+  
 
-  ngOnInit() {
+  ngOnInit() 
+  {    
+    this.sub = this.route.params.subscribe(params => 
+      {
+        this.id = +(params['id']);
+      })
+    this.getTracksService.getSingleTrack(this.id).subscribe(
+      (data: any) => {
+        console.log('from service: ', data);
+        this.serverData = of(data);
+      },
+      (err: any) => {
+        console.log("error", err);
+        this.errorResponse = err;
+      }
+    )
+    
+    
   }
-
-  onPlayClicked() {
-    this.httpClient.get('http://127.0.0.1:5002/play').subscribe(data => {
-      this.serverData = data as JSON;
-      console.log(this.serverData);
-    });
-  }
-
-  onStopClicked() {
-    this.httpClient.get('http://127.0.0.1:5002/stop').subscribe(data => {
-      this.serverData = data as JSON;
-      console.log(this.serverData);
-    });
-  }
-
 }

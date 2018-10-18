@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { of, Observable } from 'rxjs';
+import { GetTracksService } from '../services/get-tracks.service';
 
 @Component({
   selector: 'app-track-selector',
@@ -8,22 +10,27 @@ import { HttpClient } from '@angular/common/http';
 })
 export class TrackSelectorComponent implements OnInit {
   title = 'mw_serve';
-  serverData: JSON = null;
+  serverData: Observable<any>;
   errorResponse = '';
 
-  constructor(private httpClient: HttpClient) {
+  constructor(
+              private httpClient: HttpClient,
+              private getTracksService: GetTracksService
+              ) {
   }
 
   ngOnInit () {
-    this.httpClient.get('http://127.0.0.1:5002/get-track-list').subscribe(
-      data => {
-      this.serverData = data as JSON;
-      console.log('Synced tracks: ', data);
+    // console.log(window.location.hostname);
+
+    this.getTracksService.getTracks().subscribe(
+      (data: any) => {
+        console.log('from service: ', data);
+        this.serverData = of(data);
       },
-      err => {
+      (err: any) => {
+        console.log("error", err);
         this.errorResponse = err;
-        console.log(this.errorResponse);
       }
-    );
+    )
   }
 }

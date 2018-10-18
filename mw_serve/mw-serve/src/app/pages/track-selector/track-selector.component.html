@@ -2,8 +2,8 @@
 
 <div *ngIf="serverData != null; else elseBlock">
   <div id="mainBox">
-    <div *ngFor="let datum of serverData">
-      <a routerLink="/player">
+    <div *ngFor="let datum of serverData | async">
+      <a [routerLink]="['/player',datum.id]">
         <div class="item">
           <div class="text">{{ datum.name }}</div>
         </div>
