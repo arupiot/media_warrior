@@ -21,12 +21,12 @@ RUN sudo apt-get dist-upgrade
 
 RUN apt-get install python3
 RUN apt-get -y install python3-pip
+RUN apt-get install omxplayer
 RUN pip3 install flask
 RUN pip3 install -U flask-cors
 RUN pip3 install Flask-RESTful
 RUN pip3 install Flask-Jsonpify
 RUN pip3 install flask-inputs
-
 RUN pip3 install omxplayer-wrapper
 
 # install everything needed to set up the 'Pi as a hotspot
