@@ -51,11 +51,11 @@ RUN git clone --single-branch -b develop https://github.com/arupiot/media_warrio
 # don't build angular app on the pi, it takes too long
 # we serve the dist from the flask app
 
-# serve Flask from 5002
+# serve Flask from 80
 WORKDIR /opt/media_warrior/mw_serve/flask
 ENTRYPOINT ["python3"]
 CMD ["omx-player-service.py"]
 
-EXPOSE 5002
+EXPOSE 80
 
 RUN [ "cross-build-end" ]
