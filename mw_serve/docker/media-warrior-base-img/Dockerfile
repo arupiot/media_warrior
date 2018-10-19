@@ -48,12 +48,12 @@ RUN curl -L https://raw.github.com/pageauc/rclone4pi/master/rclone-install.sh | 
 # set up gdrive remote
 # creates a remote called arupiot-expect
 
-RUN /bin/bash /opt/media_warrior/mw_serve/docker/rclone/rclone_expect.sh
+#RUN /opt/media_warrior/mw_serve/docker/rclone/rclone_expect.sh
 
 # sync with gdrive
 # sample mlp are in mlp_samples_test
 
-RUN rclone lsf arupiot-expect:mlp_samples_test
+#RUN rclone lsf arupiot-expect:mlp_samples_test
 
 # set up rclone cron job
 
