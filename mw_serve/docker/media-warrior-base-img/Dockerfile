@@ -7,11 +7,9 @@
 # (probably) get resin.io rpi image. Has QEMU built in
 FROM resin/rpi-raspbian
 
-RUN [ "cross-build-start" ]
-
 # apt-get update or equivalent
 
-RUN apt-get update 
+RUN apt-get update
 RUN sudo apt-get dist-upgrade
 
 # install app-utils? (since apt-get keeps complaining)
@@ -22,7 +20,7 @@ RUN sudo apt-get dist-upgrade
 RUN apt-get -y install python3
 RUN apt-get -y install python3-pip
 # need dbus, it's not in this image
-RUN apt-get install libdbus-1-dev 
+RUN apt-get install libdbus-1-dev
 RUN apt-get -y install omxplayer
 RUN pip3 install flask
 RUN pip3 install -U flask-cors
@@ -56,8 +54,18 @@ RUN curl -L https://raw.github.com/pageauc/rclone4pi/master/rclone-install.sh | 
 #RUN rclone lsf arupiot-expect:mlp_samples_test
 
 #Sync songs from the gdrive
-WORKDIR /home/pirate
-CMD rclone sync arupiot-expect:mlp_samples_test downloads -v -P
+
+
+RUN apt-get install man
+RUN apt-get install p7zip-full
+RUN curl -L https://rclone.org/install.sh | bash
+
+ADD rclone1.43.1_expect.sh /
+RUN expect rclone1.43.1_expect.sh
+
+RUN mkdir opt/GCP
+ADD media-warrior-07dec249ae7a.json /opt/GCP
+RUN rclone sync arupiot-expect:mlp_samples_test /opt/media_warrior/mlp_samples -v -P
 
 # set up rclone cron job
 
@@ -71,10 +79,10 @@ CMD rclone sync arupiot-expect:mlp_samples_test downloads -v -P
 # we serve the dist from the flask app
 
 # serve Flask from 80
-WORKDIR /opt/media_warrior/mw_serve/flask
-ENTRYPOINT ["python3"]
-CMD ["omx-player-service.py"]
+# WORKDIR /opt/media_warrior/mw_serve/flask
+# ENTRYPOINT ["python3"]
+# CMD ["omx-player-service.py"]
 
 EXPOSE 80
 
-RUN [ "cross-build-end" ]
+
