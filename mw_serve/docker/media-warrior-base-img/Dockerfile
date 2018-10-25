@@ -57,7 +57,7 @@ RUN curl -L https://raw.github.com/pageauc/rclone4pi/master/rclone-install.sh | 
 
 #Sync songs from the gdrive
 WORKDIR /home/pirate
-RUN rclone sync arupiot-expect:mlp_samples_test downloads
+CMD rclone sync arupiot-expect:mlp_samples_test downloads -v -P
 
 # set up rclone cron job
 
