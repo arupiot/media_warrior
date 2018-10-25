@@ -55,6 +55,10 @@ RUN curl -L https://raw.github.com/pageauc/rclone4pi/master/rclone-install.sh | 
 
 #RUN rclone lsf arupiot-expect:mlp_samples_test
 
+#Sync songs from the gdrive
+RUN cd
+RUN rclone sync arupiot-expect:mlp_samples_test downloads
+
 # set up rclone cron job
 
 # run rclone
