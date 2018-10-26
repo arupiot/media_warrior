@@ -7,6 +7,8 @@
 # (probably) get resin.io rpi image. Has QEMU built in
 FROM resin/rpi-raspbian
 
+RUN [ "cross-build-start" ]
+
 # make dirs
 
 RUN mkdir opt/GCP
@@ -68,4 +70,4 @@ CMD ["omx-player-service.py"]
 
 EXPOSE 80
 
-
+RUN [ "cross-build-end" ]
