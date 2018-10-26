@@ -7,72 +7,55 @@
 # (probably) get resin.io rpi image. Has QEMU built in
 FROM resin/rpi-raspbian
 
-# apt-get update or equivalent
-
-RUN apt-get update
-RUN sudo apt-get dist-upgrade
-
-# install app-utils? (since apt-get keeps complaining)
-
-# install python 3.x
-# install packages needed for Flask/omxplayer etc
-
-RUN apt-get -y install python3
-RUN apt-get -y install python3-pip
-# need dbus, it's not in this image
-RUN apt-get install libdbus-1-dev
-RUN apt-get -y install omxplayer
-RUN pip3 install flask
-RUN pip3 install -U flask-cors
-RUN pip3 install Flask-RESTful
-RUN pip3 install Flask-Jsonpify
-RUN pip3 install flask-inputs
-RUN pip3 install omxplayer-wrapper
-
-# copy mw_serve repo
-RUN mkdir /opt/media_warrior
-RUN apt-get install git
-RUN git clone --single-branch -b develop https://github.com/arupiot/media_warrior.git /opt/media_warrior
-
-# install everything needed to set up the 'Pi as a hotspot
-
-# install expect/rclone
-
-RUN apt-get -y install expect
-RUN curl -L https://raw.github.com/pageauc/rclone4pi/master/rclone-install.sh | bash
-
-# get gdrive service account details from usb stick
-
-# set up gdrive remote
-# creates a remote called arupiot-expect
-
-#RUN /opt/media_warrior/mw_serve/docker/rclone/rclone_expect.sh
-
-# sync with gdrive
-# sample mlp are in mlp_samples_test
-
-#RUN rclone lsf arupiot-expect:mlp_samples_test
-
-#Sync songs from the gdrive
-
-
-RUN apt-get install man
-RUN apt-get install p7zip-full
-RUN curl -L https://rclone.org/install.sh | bash
-
-ADD rclone1.43.1_expect.sh /
-RUN expect rclone1.43.1_expect.sh
+# make dirs
 
 RUN mkdir opt/GCP
 ADD media-warrior-07dec249ae7a.json /opt/GCP
-RUN rclone sync arupiot-expect:mlp_samples_test /opt/media_warrior/mlp_samples -v -P
+ADD rclone1.43.1_expect.sh /
 
+# apt-get update or equivalent
+# install app-utils? (since apt-get keeps complaining)
+# install python 3.x
+# install packages needed for Flask/omxplayer etc
+# need dbus, it's not in this image
+# copy mw_serve repo
+# install everything needed to set up the 'Pi as a hotspot
+# install expect/rclone
+# get gdrive service account details from usb stick
+# set up gdrive remote
+# creates a remote called arupiot-expect
+# && \ /opt/media_warrior/mw_serve/docker/rclone/rclone_expect.sh
+# sync with gdrive
+# sample mlp are in mlp_samples_test
+# RUN rclone lsf arupiot-expect:mlp_samples_test
+# Sync songs from the gdrive
+
+RUN apt-get update && \ 
+sudo apt-get dist-upgrade && \
+apt-get -y install python3 && \ 
+apt-get -y install python3-pip && \ 
+apt-get install libdbus-1-dev && \ 
+apt-get -y install omxplayer && \ 
+pip3 install flask && \ 
+pip3 install -U flask-cors && \ 
+pip3 install Flask-RESTful && \ 
+pip3 install Flask-Jsonpify && \ 
+pip3 install flask-inputs && \ 
+pip3 install omxplayer-wrapper && \ 
+mkdir /opt/media_warrior && \ 
+apt-get install git && \ 
+git clone --single-branch -b develop https://github.com/arupiot/media_warrior.git /opt/media_warrior && \ 
+apt-get -y install expect && \ 
+curl -L https://raw.github.com/pageauc/rclone4pi/master/rclone-install.sh | bash && \ 
+apt-get install man && \ 
+apt-get install p7zip-full && \ 
+curl -L https://rclone.org/install.sh | bash && \
+rclone --version && \
+expect rclone1.43.1_expect.sh && \
+rclone sync arupiot-expect:mlp_samples_test /opt/media_warrior/mlp_samples -v -P
+
+# TODO:
 # set up rclone cron job
-
-# run rclone
-# Sample Command for rclone:
-# rclone sync remote_mlp:mlp-samples-test ./mlp_files/ -v -P
-
 # set up rclone chronjob (updated every evening?)
 
 # don't build angular app on the pi, it takes too long
