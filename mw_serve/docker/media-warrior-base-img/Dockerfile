@@ -79,9 +79,9 @@ RUN rclone sync arupiot-expect:mlp_samples_test /opt/media_warrior/mlp_samples -
 # we serve the dist from the flask app
 
 # serve Flask from 80
-# WORKDIR /opt/media_warrior/mw_serve/flask
-# ENTRYPOINT ["python3"]
-# CMD ["omx-player-service.py"]
+WORKDIR /opt/media_warrior/mw_serve/flask
+ENTRYPOINT ["python3"]
+CMD ["omx-player-service.py"]
 
 EXPOSE 80
 
