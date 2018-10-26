@@ -4,7 +4,9 @@
 # (but) resin images have qemu built in anyway...
 # sudo docker run -v /usr/bin/qemu-arm-static:/usr/bin/qemu-arm-static --rm -ti resin/rpi-raspbian
 
-FROM sdhibit/rpi-raspbian:jessie
+FROM resin/rpi-raspbian
+
+RUN [ "cross-build-start" ]
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     wget libfreetype6 dbus libsmbclient libssh-4 \
