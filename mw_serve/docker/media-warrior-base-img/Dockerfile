@@ -8,20 +8,12 @@ FROM resin/rpi-raspbian
 
 RUN [ "cross-build-start" ]
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    wget libfreetype6 dbus libsmbclient libssh-4 \
-    libpcre3 fonts-freefont-ttf fbset \
-  && apt-get clean
-
-RUN wget http://omxplayer.sconde.net/builds/omxplayer_0.3.6~git20150912~d99bd86_armhf.deb -O /tmp/omxplayer.deb
-
-RUN dpkg -i /tmp/omxplayer.deb
-
 # make dirs
 
 RUN mkdir opt/GCP
-ADD media-warrior-07dec249ae7a.json /opt/GCP
-ADD rclone1.43.1_expect.sh /
+# ADD media-warrior-07dec249ae7a.json /opt/GCP
+# ADD rclone1.43.1_expect.sh /
+
 
 # apt-get update or equivalent
 # install app-utils? (since apt-get keeps complaining)
@@ -40,28 +32,32 @@ ADD rclone1.43.1_expect.sh /
 # RUN rclone lsf arupiot-expect:mlp_samples_test
 # Sync songs from the gdrive
 
-RUN apt-get update && \ 
-apt-get -y install python3 && \ 
-apt-get -y install python3-pip && \
-pip3 install dbus-python && \  
-apt-get -y install omxplayer && \ 
-pip3 install flask && \ 
-pip3 install -U flask-cors && \ 
-pip3 install Flask-RESTful && \ 
-pip3 install Flask-Jsonpify && \ 
-pip3 install flask-inputs && \ 
-pip3 install omxplayer-wrapper && \ 
-mkdir /opt/media_warrior && \ 
-apt-get install git && \ 
-git clone --single-branch -b alt-rpi-img https://github.com/arupiot/media_warrior.git /opt/media_warrior && \ 
-apt-get -y install expect && \ 
-curl -L https://raw.github.com/pageauc/rclone4pi/master/rclone-install.sh | bash && \ 
-apt-get install man && \ 
-apt-get install p7zip-full && \ 
-curl -L https://rclone.org/install.sh | bash && \
-rclone --version && \
-expect rclone1.43.1_expect.sh && \
-rclone sync arupiot-expect:mlp_samples_test /opt/media_warrior/mlp_samples -v -P
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    apt-utils wget libfreetype6 dbus dbus-*dev libsmbclient libssh-4 \
+    libpcre3 fonts-freefont-ttf fbset \
+    && apt-get clean \
+    && wget http://omxplayer.sconde.net/builds/omxplayer_0.3.6~git20150912~d99bd86_armhf.deb -O /tmp/omxplayer.deb \
+    && dpkg -i /tmp/omxplayer.deb \
+    && apt-get -y install build-essential python3-dev \ 
+    && apt-get -y install python3-pip && \
+    pip3 install dbus-python && \ 
+    pip3 install flask && \ 
+    pip3 install -U flask-cors && \ 
+    pip3 install Flask-RESTful && \ 
+    pip3 install Flask-Jsonpify && \ 
+    pip3 install flask-inputs && \ 
+    pip3 install omxplayer-wrapper && \ 
+    mkdir /opt/media_warrior && \ 
+    apt-get install git && \ 
+    git clone --single-branch -b alt-rpi-img https://github.com/arupiot/media_warrior.git /opt/media_warrior && \ 
+    apt-get -y install expect && \ 
+    curl -L https://raw.github.com/pageauc/rclone4pi/master/rclone-install.sh | bash && \ 
+    apt-get install man && \ 
+    apt-get install p7zip-full && \ 
+    curl -L https://rclone.org/install.sh | bash && \
+    rclone --version
+# expect rclone1.43.1_expect.sh
+# rclone sync arupiot-expect:mlp_samples_test /opt/media_warrior/mlp_samples -v -P
 
 # TODO:
 # set up rclone cron job
