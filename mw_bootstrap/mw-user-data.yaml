@@ -1,0 +1,72 @@
+#cloud-config
+# vim: syntax=yaml
+#
+
+hostname: media-warrior
+manage_etc_hosts: true
+
+resize_rootfs: true
+growpart:
+    mode: auto
+    devices: ["/"]
+    ignore_growroot_disabled: false
+
+users:
+  - default
+  - name: warrior
+    gecos: "Media Warrior"
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    groups: users,docker,video
+    ssh_import_id: None
+    ssh_authorized_keys: 
+      - ssh-rsa <ADD SSH-RSA PUBLIC KEY HERE>
+    lock_passwd: true
+
+package_update: true
+package_upgrade: true
+package_reboot_if_required: true
+packages:
+  - ntp
+  - omxplayer
+  - python-pip
+  - python3-pip
+  - fbset
+  - fbi
+  - pygame
+  - libdbus-1
+  - libdbus-1-dev
+
+locale: "en_US.UTF-8"
+timezone: "Europe/London"
+
+write_files:
+    - path: "/etc/docker/daemon.json"
+      owner: "root:root"
+      content: |
+        {
+          "labels": [ "os=linux", "arch=arm64" ],
+          "experimental": true
+        }
+
+runcmd:
+  - [ systemctl, restart, avahi-daemon ]
+  - [ systemctl, restart, docker ]
+  - [docker, swarm, init ]
+  - [
+      docker, service, create,
+      "--detach=false",
+      "--name", "portainer",
+      "--publish", "9000:9000",
+      "--mount", "type=volume,src=portainer_data,dst=/data",
+      "--mount", "type=bind,src=//var/run/docker.sock,dst=/var/run/docker.sock",
+      "portainer/portainer", "-H", "unix:///var/run/docker.sock", "--no-auth"
+    ]
+  - [
+      docker, service, create,
+      "--detach=false",
+      "--name", "media-warrior-base",
+      "--publish", "80:80",
+      "--mount", "type=volume,src=arupiot/media_warrior,dst=/opt/media_warrior/",
+      "--mount", "type=bind,src=//var/cloud/data,dst=/var/www/html/data",
+    ]
