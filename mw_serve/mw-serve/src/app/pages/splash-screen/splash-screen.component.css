@@ -12,7 +12,7 @@
     
     
     background: #000000;
-    border: 0.9em solid #ed028c;
+    /* border: 0.9em solid #ed028c; */
     box-sizing: border-box;
 
     font-family: 'Lush';
@@ -32,11 +32,11 @@
 #mainBox .flexBox > :nth-child(1n)
 {
     width: 80vw;
-    height: 14vh;
+    /* height: 14vh; */
     text-align: center;
     border: 0.1em solid white;
     box-sizing: border-box;
-    padding-top: 0.95em;
+    padding: 0.3em;
     margin-top: 0.4em;
 }
 #mainBox .image

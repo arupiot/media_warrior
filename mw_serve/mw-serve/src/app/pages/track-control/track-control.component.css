@@ -12,7 +12,7 @@
         
         
         background: #000000;
-        border: 0.9em solid #ed028c;
+        /* border: 0.9em solid #ed028c; */
         box-sizing: border-box;
     
         font-family: 'Lush';
@@ -47,7 +47,7 @@
     height: 5em;
     width: 80vw;
     font-size: 2.5em;
-    background: #5d0037;
+    /* background: #5d0037; */
 
     border: 0.1em solid white;
 }

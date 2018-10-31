@@ -1,41 +1,29 @@
-.error
-{
-    width: 100%;
-    text-align: center;
-    margin-top: 45vh;
-    font-size: 2em;
+.error {
+  width: 100%;
+  text-align: center;
+  margin-top: 45vh;
+  font-size: 2em;
 }
 
-#mainBox .item
-{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 80vw;
-    height: 8vh;
-    text-align: center;
-    font-size: 2.5em;
+.container {
+    margin-top: 2em;
+    margin-bottom: 2em;
 }
 
-
-/* .item .text 
-{
-    margin-top: 0.3em;
-    height: 1em;
-} */
-
-
-.item .link
-{
-    text-decoration: none;
+#mainBox .item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 80vw;
+  text-align: center;
+  font-size: 2.5em;
+  margin-top: 0.3em;
+  margin-bottom: 0.3em;
+  padding-top:0.3em;
+  padding-bottom: 0.3em;
+  border: 0.1em solid white;
 }
 
-#mainBox > :nth-child(odd)
-{
-    background: #29143b;
+.item .link {
+  text-decoration: none;
 }
-#mainBox > :nth-child(even)
-{
-    background: #600039;
-}
-

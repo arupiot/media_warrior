@@ -2,12 +2,14 @@
 
 <div *ngIf="serverData != null; else elseBlock">
   <div id="mainBox">
+    <div class="container">
     <div *ngFor="let datum of serverData | async">
       <a [routerLink]="['/player',datum.id]">
         <div class="item">
           <div class="text">{{ datum.name }}</div>
         </div>
       </a>
+    </div>
     </div>
   </div>
   <!-- <app-track></app-track> -->
