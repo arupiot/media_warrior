@@ -12,33 +12,23 @@ growpart:
     ignore_growroot_disabled: false
 
 users:
-  - default
-  - name: warrior
-    gecos: "Media Warrior"
-    sudo: ALL=(ALL) NOPASSWD:ALL
-    shell: /bin/bash
-    groups: users,docker,video
-    ssh_import_id: None
-    ssh_authorized_keys: 
-      - ssh-rsa <ADD SSH-RSA PUBLIC KEY HERE>
-    lock_passwd: true
-
-package_update: true
-package_upgrade: true
-package_reboot_if_required: true
-packages:
-  - ntp
-  - omxplayer
-  - python-pip
-  - python3-pip
-  - fbset
-  - fbi
-  - pygame
-  - libdbus-1
-  - libdbus-1-dev
+    - default
+    - name: warrior
+      gecos: "Media Warrior"
+      sudo: ALL=(ALL) NOPASSWD:ALL
+      shell: /bin/bash
+      groups: users,docker,video
+      ssh_import_id: none
+      passwd: <put SHA5 password here>
+      ssh_authorized_keys:
+          - <put ssh public key here>
+      lock_passwd: true
 
 locale: "en_US.UTF-8"
 timezone: "Europe/London"
+
+mounts:
+    - [ /dev/sda1, /mnt/usb, "vfat", "defaults", "0", "0" ]
 
 write_files:
     - path: "/etc/docker/daemon.json"
@@ -48,25 +38,73 @@ write_files:
           "labels": [ "os=linux", "arch=arm64" ],
           "experimental": true
         }
+    - path: "/etc/wpa_supplicant/wpa_supplicant.conf"
+      content: |
+          ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+          update_config=1
+          country=UK
+          network={
+              ssid="WIFISSID"
+            	psk=WIFIPASSWORD
+          }
+      owner: root:root
+      permissions: '0755'
+    - path: "/etc/rc.local"
+      content: |
+          #!/bin/sh -e
+          (sleep 2; /opt/media-warrior/start.sh)&
+          exit 0
+      owner: root:root
+      permissions: '0755'
+    - path: "/opt/media-warrior/start.sh"
+      content: |
+          #!/bin/sh
+          docker pull arupiot/media_warrior_base:develop
+          docker run --privileged -d -p 80:80 arupiot/media_warrior_base:develop
+      owner: root:root
+      permissions: '0755'
 
 runcmd:
-  - [ systemctl, restart, avahi-daemon ]
-  - [ systemctl, restart, docker ]
-  - [docker, swarm, init ]
-  - [
-      docker, service, create,
-      "--detach=false",
-      "--name", "portainer",
-      "--publish", "9000:9000",
-      "--mount", "type=volume,src=portainer_data,dst=/data",
-      "--mount", "type=bind,src=//var/run/docker.sock,dst=/var/run/docker.sock",
-      "portainer/portainer", "-H", "unix:///var/run/docker.sock", "--no-auth"
+    - [systemctl, restart, avahi-daemon]
+    - [systemctl, enable, docker.service]
+    - [systemctl, restart, docker]
+    - [docker, swarm, init]
+    - [
+        docker, service, create,
+        "--detach=false",
+        "--name", "portainer",
+        "--publish", "9000:9000",
+        "--mount", "type=volume,src=portainer_data,dst=/data",
+        "--mount", "type=bind,src=//var/run/docker.sock,dst=/var/run/docker.sock",
+        "portainer/portainer", "-H", "unix:///var/run/docker.sock", "--no-auth"
     ]
-  - [
-      docker, service, create,
-      "--detach=false",
-      "--name", "media-warrior-base",
-      "--publish", "80:80",
-      "--mount", "type=volume,src=arupiot/media_warrior,dst=/opt/media_warrior/",
-      "--mount", "type=bind,src=//var/cloud/data,dst=/var/www/html/data",
-    ]
+    - [systemctl, restart, rc-local.service]
+#  - [
+#     docker, service, create,
+#     "--detach=false",
+#     "--name", "media-warrior-base",
+#     "--publish", "80:80",
+#     "--mount","type=volume,src=arupiot/media_warrior,dst=/opt/media_warrior/",
+#     "--mount", "type=bind,src=//var/cloud/data,dst=/var/www/html/data",
+#    ]
+
+package_update: false
+package_upgrade: false
+package_reboot_if_required: true
+packages:
+    - ntp
+    # - omxplayer
+    # - python-pip
+    # - python3-pip
+    # - fbset
+    # - fbi
+    # - pygame
+    # - libdbus-1
+    # - libdbus-1-dev
+
+power_state:
+    delay: "+10"
+    mode: poweroff
+    message: Media Warrior setup completed, rebooting in 30 seconds, bye bye
+    timeout: 30
+    condition: true

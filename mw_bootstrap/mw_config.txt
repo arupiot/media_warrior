@@ -25,7 +25,7 @@ framebuffer_height=320
 #hdmi_force_hotplug=1
 
 # uncomment to force a specific HDMI mode (this will force VGA)
-#hdmi_group=1
+hdmi_group=9
 #hdmi_mode=1
 
 # uncomment to force a HDMI mode rather than DVI. This can make audio work in
@@ -61,4 +61,5 @@ gpu_mem=128
 # Disable UART (this is necessary to enable Wi-Fi)
 enable_uart=0
 
-
+# Set log level
+loglevel=1
