@@ -9,6 +9,7 @@
 #mainBox .item
 {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     width: 80vw;
     height: 8vh;
@@ -17,11 +18,11 @@
 }
 
 
-.item .text 
+/* .item .text 
 {
     margin-top: 0.3em;
     height: 1em;
-}
+} */
 
 
 .item .link
@@ -37,3 +38,4 @@
 {
     background: #600039;
 }
+
