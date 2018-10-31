@@ -5,9 +5,8 @@
   font-size: 2em;
 }
 
-.container {
-    margin-top: 2em;
-    margin-bottom: 2em;
+#mainBox {
+  padding-top: 2em;
 }
 
 #mainBox .item {
@@ -17,8 +16,8 @@
   width: 80vw;
   text-align: center;
   font-size: 2.5em;
-  margin-top: 0.3em;
-  margin-bottom: 0.3em;
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
   padding-top:0.3em;
   padding-bottom: 0.3em;
   border: 0.1em solid white;
