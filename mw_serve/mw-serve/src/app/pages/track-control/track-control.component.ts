@@ -16,11 +16,21 @@ export class TrackControlComponent implements OnInit {
   private sub: any;
   
 
-  constructor(private route: ActivatedRoute, 
+  constructor(private route: ActivatedRoute,
               private getTracksService: GetTracksService
               ) { }
-  
+  styleObject() {
+    return {
+      // background: 'black',
+      // border: '0.1em solid white'
+    };
+  }
 
+  styleObjectBorder() {
+    return {
+      // border: 'none'
+    };
+  }
   ngOnInit() 
   {    
     this.sub = this.route.params.subscribe(params => 

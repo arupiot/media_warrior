@@ -29,6 +29,7 @@ TRACK_ARRAY = [ {"name" : "karma", "id":"0"}, \
                 {"name":"validation facial", "id":"10"}]
 AUDIO_PATH_MLP = "/opt/02_Planets_Part1_Treatment.mlp"
 AUDIO_PATH_TEST = "/opt/demo_5ch/test.mp4"
+# player = OMXPlayer(AUDIO_PATH_MLP, args=['--layout', '5.1', '-w', '-o', 'hdmi'])
 
 # serve the angular app
 
@@ -51,10 +52,10 @@ def findWindows():
         return True
     return False
 
-if findWindows() == False:
-    from omxplayer.player import OMXPlayer
-    from pathlib import Path
-    from time import sleep
+# if findWindows() == False:
+#     from omxplayer.player import OMXPlayer
+#     from pathlib import Path
+#     from time import sleep
 
 class GetTrackList(Resource):
   def get(self):
@@ -69,10 +70,12 @@ class GetSingleTrack(Resource):
 class PlaySingleTrack(Resource):
     def get(self):
         if findWindows() == False:
-            player = OMXPlayer(AUDIO_PATH_TEST)
-            sleep(5)
-            player.quit()
-            args = getIdInput()
+            # player = OMXPlayer(AUDIO_PATH_TEST)
+
+            # sleep(5)
+
+            # player.quit()
+            # args = getIdInput()
             return jsonify("Playing track: " + TRACK_ARRAY[args["id"]]["name"]) 
         return jsonify("cannot play tracks on windows")
 

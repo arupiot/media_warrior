@@ -1,11 +1,11 @@
 <!-- <router-outlet></router-outlet> -->
 
 <div *ngIf="serverData != null; else elseBlock">
-  <div id="mainBox">
+  <div id="mainBox" [ngStyle]="styleObject()">
    
-    <div *ngFor="let datum of serverData | async" >
+    <div *ngFor="let datum of serverData | async" [ngStyle]="itemStyleObject()">
       <a [routerLink]="['/player',datum.id]">
-        <div class="item">
+        <div class="item" >
           <div class="text">{{ datum.name }}</div>
         </div>
       </a>

@@ -7,8 +7,14 @@ import { GetTracksService } from '../services/get-tracks.service';
   styleUrls: ['./splash-screen.component.css']
 })
 export class SplashScreenComponent implements OnInit {
-
+  pink = true;
   constructor(private getTracksService: GetTracksService) { }
+
+  styleObject() {
+     return{
+      //  border: 'none'
+      };
+  }
 
   ngOnInit() {
   }

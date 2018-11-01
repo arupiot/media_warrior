@@ -19,6 +19,20 @@ export class TrackSelectorComponent implements OnInit {
               ) {
   }
 
+
+  styleObject() {
+    return{
+      // border: 'none',
+     };
+ }
+
+ itemStyleObject() {
+   return {
+    // border: '0.1em solid white',
+    // marginBottom: '2em',
+    // background: 'black'
+   };
+ }
   ngOnInit () {
     // console.log(window.location.hostname);
 
@@ -28,9 +42,9 @@ export class TrackSelectorComponent implements OnInit {
         this.serverData = of(data);
       },
       (err: any) => {
-        console.log("error", err);
+        console.log('error', err);
         this.errorResponse = err;
       }
-    )
+    );
   }
 }

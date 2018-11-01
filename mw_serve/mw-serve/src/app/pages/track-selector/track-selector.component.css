@@ -7,9 +7,11 @@
 
 #mainBox {
   padding-top: 2em;
+  padding-bottom: 2em;
+  border: 0.9em solid #ed028c;
 }
 
-#mainBox .item {
+#mainBox .item {  
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -20,8 +22,17 @@
   margin-bottom: 0.2em;
   padding-top:0.3em;
   padding-bottom: 0.3em;
-  border: 0.1em solid white;
 }
+
+
+#mainBox > :nth-child(odd)
+{
+    background: #29143b;
+}
+#mainBox > :nth-child(even)
+{
+    background: #600039;
+} 
 
 .item .link {
   text-decoration: none;
