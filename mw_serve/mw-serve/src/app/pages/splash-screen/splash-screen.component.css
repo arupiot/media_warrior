@@ -12,7 +12,7 @@
     
     
     background: #000000;
-    border: 0.9em solid #ed028c;
+    border: 0.9rem solid #ed028c;
     box-sizing: border-box;
 
     font-family: 'Lush';
@@ -41,6 +41,6 @@
 }
 #mainBox .image
 {
-    margin-top: 5vh;
+    padding-top: 4rem;
     transform: scale(2);
 }

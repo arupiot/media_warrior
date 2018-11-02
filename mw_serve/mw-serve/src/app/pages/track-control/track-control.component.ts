@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GetTracksService } from '../services/get-tracks.service';
 import { of, Observable } from 'rxjs';
+import { GetStylesService } from '../services/get-styles.service';
 
 @Component({
   selector: 'app-track-control',
@@ -9,51 +10,52 @@ import { of, Observable } from 'rxjs';
   styleUrls: ['./track-control.component.css']
 })
 export class TrackControlComponent implements OnInit {
-
   serverData: Observable<any>;
   errorResponse = '';
   id: number;
   private sub: any;
-  
 
-  constructor(private route: ActivatedRoute,
-              private getTracksService: GetTracksService
-              ) { }
+  constructor(
+    private route: ActivatedRoute,
+    private getTracksService: GetTracksService,
+    private getStylesService: GetStylesService
+  ) {}
+
   styleObject() {
-    return {
-      background: 'black',
-      border: '0.2rem solid white'
-    };
+    if (!this.getStylesService.getStyles()) {
+      return {
+        background: 'black',
+        border: '0.2rem solid white'
+      };
+    }
   }
 
   styleObjectBorder() {
+    if (!this.getStylesService.getStyles()) {
     return {
       border: 'none'
     };
   }
-  ngOnInit() 
-  {    
-    this.sub = this.route.params.subscribe(params => 
-      {
-        this.id = +(params['id']);
-      })
+  }
+  ngOnInit() {
+
+    this.sub = this.route.params.subscribe(params => {
+      this.id = +params['id'];
+    });
     this.getTracksService.getSingleTrack(this.id).subscribe(
       (data: any) => {
         console.log('from service: ', data);
         this.serverData = of(data);
       },
       (err: any) => {
-        console.log("error", err);
+        console.log('error', err);
         this.errorResponse = err;
       }
-    )
+    );
   }
-  playMusic()
-  {
-    this.getTracksService.playSingleTrack(this.id).subscribe(
-      (data) =>{
-        console.log(data);
-      }
-      );
+  playMusic() {
+    this.getTracksService.playSingleTrack(this.id).subscribe(data => {
+      console.log(data);
+    });
   }
 }
