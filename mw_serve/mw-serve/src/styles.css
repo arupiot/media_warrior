@@ -5,6 +5,7 @@ body {
     margin: 0;
     border: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 a {
@@ -27,7 +28,7 @@ a {
     
     
     background: #000000;
-    border: 0.9em solid #ed028c;
+    /* border: 0.9em solid #ed028c; */
     box-sizing: border-box;
 
     font-family: 'Lush';

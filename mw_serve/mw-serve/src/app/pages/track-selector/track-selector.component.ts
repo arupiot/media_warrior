@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { of, Observable } from 'rxjs';
 import { GetTracksService } from '../services/get-tracks.service';
+import { GetStylesService } from '../services/get-styles.service';
+
 
 @Component({
   selector: 'app-track-selector',
@@ -15,10 +17,31 @@ export class TrackSelectorComponent implements OnInit {
 
   constructor(
               private httpClient: HttpClient,
-              private getTracksService: GetTracksService
+              private getTracksService: GetTracksService,
+              private getStylesService: GetStylesService
               ) {
   }
 
+
+  styleObject() {
+    if (!this.getStylesService.getStyles()) {
+      return{
+        border: 'none',
+        paddingTop: '1.6rem'
+       };
+    }
+ }
+
+ itemStyleObject() {
+  if (!this.getStylesService.getStyles()) {
+   return {
+    border: '0.2rem solid white',
+    background: 'black',
+    marginTop: '0.4em',
+    marginBottom: '0.4em'
+   };
+ }
+}
   ngOnInit () {
     // console.log(window.location.hostname);
 
@@ -28,9 +51,9 @@ export class TrackSelectorComponent implements OnInit {
         this.serverData = of(data);
       },
       (err: any) => {
-        console.log("error", err);
+        console.log('error', err);
         this.errorResponse = err;
       }
-    )
+    );
   }
 }
