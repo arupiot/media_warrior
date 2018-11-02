@@ -5,7 +5,7 @@
 # sudo docker run -v /usr/bin/qemu-arm-static:/usr/bin/qemu-arm-static --rm -ti resin/rpi-raspbian
 
 # get resin.io rpi image. Has QEMU built in
-FROM resin/rpi-raspbian
+FROM resin/rpi-raspbian:wheezy
 
 RUN [ "cross-build-start" ]
 
@@ -37,8 +37,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-utils wget libfreetype6 dbus dbus-*dev libsmbclient libssh-4 \
     libpcre3 fonts-freefont-ttf fbset \
     && apt-get clean \
-    && wget http://omxplayer.sconde.net/builds/omxplayer_0.3.6~git20150912~d99bd86_armhf.deb -O /tmp/omxplayer.deb \
-    && dpkg -i /tmp/omxplayer.deb \
+    && apt-get install omxplayer \ 
     && apt-get -y install build-essential python3-dev \ 
     && apt-get -y install python3-pip && \
     pip3 install dbus-python && \ 
