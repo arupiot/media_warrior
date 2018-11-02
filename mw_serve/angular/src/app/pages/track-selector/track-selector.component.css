@@ -1,33 +1,28 @@
-.error
-{
-    width: 100%;
-    text-align: center;
-    margin-top: 45vh;
-    font-size: 2em;
+.error {
+  width: 100%;
+  text-align: center;
+  margin-top: 45vh;
+  font-size: 2em;
 }
 
-#mainBox .item
-{
-    display: flex;
-    justify-content: center;
-    width: 80vw;
-    height: 8vh;
-    text-align: center;
-    font-size: 2.5em;
+#mainBox {
+  padding-top: 2rem;
+  padding-bottom: 2em;
+  border: 0.9em solid #ed028c;
 }
 
+#mainBox .item {  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 80vw;
+  text-align: center;
+  font-size: 2.5em;
 
-.item .text 
-{
-    margin-top: 0.3em;
-    height: 1em;
+  padding-top:0.3em;
+  padding-bottom: 0.3em;
 }
 
-
-.item .link
-{
-    text-decoration: none;
-}
 
 #mainBox > :nth-child(odd)
 {
@@ -36,4 +31,8 @@
 #mainBox > :nth-child(even)
 {
     background: #600039;
+} 
+
+.item .link {
+  text-decoration: none;
 }
