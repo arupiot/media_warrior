@@ -60,7 +60,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # rclone sync arupiot-expect:mlp_samples_test /opt/media_warrior/mlp_samples -v -P
 
 # TODO:
-# set up rclone cron job
+# set up rclone cron job  
 # set up rclone chronjob (updated every evening?)
 
 # don't build angular app on the pi, it takes too long

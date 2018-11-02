@@ -27,8 +27,8 @@ TRACK_ARRAY = [ {"name" : "karma", "id":"0"}, \
                 {"name":"hard days night", "id":"8"}, \
                 {"name":"the comforter", "id":"9"}, \
                 {"name":"validation facial", "id":"10"}]
-AUDIO_PATH_MLP = "/opt/02_Planets_Part1_Treatment.mlp"
-AUDIO_PATH_TEST = "/opt/demo_5ch/test.mp4"
+AUDIO_PATH_MLP = "/opt/media_warrior/mlp_samples/hard-rock.mlp"
+AUDIO_PATH_TEST = "/opt/demo/test.mp4"
 # player = OMXPlayer(AUDIO_PATH_MLP, args=['--layout', '5.1', '-w', '-o', 'hdmi'])
 
 # serve the angular app
@@ -70,14 +70,14 @@ class GetSingleTrack(Resource):
 class PlaySingleTrack(Resource):
     def get(self):
         if findWindows() == False:
-            player = OMXPlayer(AUDIO_PATH_TEST)
+            player = OMXPlayer(AUDIO_PATH_MLP, args=['--layout', '5.1', '-w', '-o', 'hdmi'])
 
-            sleep(5)
+            sleep(30)
 
             player.quit()
             args = getIdInput()
             return jsonify("Playing track: " + TRACK_ARRAY[args["id"]]["name"]) 
-        return jsonify("cannot play tracks on windows")
+        return jsonify("cannot play tracks on windows!")
 
 
 class Stop(Resource):
