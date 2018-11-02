@@ -31,6 +31,11 @@ AUDIO_PATH_MLP = "/opt/media_warrior/mlp_samples/hard-rock.mlp"
 AUDIO_PATH_TEST = "/opt/demo/test.mp4"
 # player = OMXPlayer(AUDIO_PATH_MLP, args=['--layout', '5.1', '-w', '-o', 'hdmi'])
 
+if findWindows() == False:
+    from omxplayer.player import OMXPlayer
+    from pathlib import Path
+    from time import sleep
+
 # serve the angular app
 
 @app.route('/', defaults={'path': ''})
@@ -51,11 +56,6 @@ def findWindows():
     if sys.platform.startswith("win32"):
         return True
     return False
-
-if findWindows() == False:
-    from omxplayer.player import OMXPlayer
-    from pathlib import Path
-    from time import sleep
 
 class GetTrackList(Resource):
   def get(self):
