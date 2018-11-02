@@ -35,7 +35,8 @@
     /* height: 14vh; */
     text-align: center;
     border: 0.2rem solid white;
-    padding: 0.5em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
     margin-top: 0.4em;
 }
 #mainBox .image
