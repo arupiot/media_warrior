@@ -4,7 +4,7 @@
 # (but) resin images have qemu built in anyway...
 # sudo docker run -v /usr/bin/qemu-arm-static:/usr/bin/qemu-arm-static --rm -ti resin/rpi-raspbian
 
-# (probably) get resin.io rpi image. Has QEMU built in
+# get resin.io rpi image. Has QEMU built in
 FROM resin/rpi-raspbian
 
 RUN [ "cross-build-start" ]
@@ -68,7 +68,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # we serve the dist from the flask app
 
 # serve Flask from 80
-WORKDIR /opt/media_warrior/mw_serve/flask
+WORKDIR /opt/media_warrior/mw_play/flask
 ENTRYPOINT ["python3"]
 CMD ["omx-player-service.py"]
 
