@@ -50,7 +50,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     pip3 install omxplayer-wrapper && \ 
     mkdir /opt/media_warrior && \ 
     apt-get install git && \ 
+<<<<<<< .merge_file_a06528
     git clone --single-branch -b develop https://github.com/arupiot/media_warrior.git /opt/media_warrior && \ 
+=======
+    git clone --single-branch -b master https://github.com/arupiot/media_warrior.git /opt/media_warrior && \ 
+>>>>>>> .merge_file_a01744
     apt-get -y install expect && \ 
     curl -L https://raw.github.com/pageauc/rclone4pi/master/rclone-install.sh | bash && \ 
     apt-get install man && \ 
