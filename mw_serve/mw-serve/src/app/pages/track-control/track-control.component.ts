@@ -21,14 +21,14 @@ export class TrackControlComponent implements OnInit {
               ) { }
   styleObject() {
     return {
-      // background: 'black',
-      // border: '0.1em solid white'
+      background: 'black',
+      border: '0.2rem solid white'
     };
   }
 
   styleObjectBorder() {
     return {
-      // border: 'none'
+      border: 'none'
     };
   }
   ngOnInit() 

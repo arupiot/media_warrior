@@ -22,15 +22,17 @@ export class TrackSelectorComponent implements OnInit {
 
   styleObject() {
     return{
-      // border: 'none',
+      border: 'none',
+      paddingTop: '1.6rem'
      };
  }
 
  itemStyleObject() {
    return {
-    // border: '0.1em solid white',
-    // marginBottom: '2em',
-    // background: 'black'
+    border: '0.2rem solid white',
+    background: 'black',
+    marginTop: '0.4em',
+    marginBottom: '0.4em'
    };
  }
   ngOnInit () {

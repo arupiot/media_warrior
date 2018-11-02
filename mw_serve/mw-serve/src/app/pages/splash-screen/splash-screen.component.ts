@@ -12,7 +12,7 @@ export class SplashScreenComponent implements OnInit {
 
   styleObject() {
      return{
-      //  border: 'none'
+       border: 'none'
       };
   }
 

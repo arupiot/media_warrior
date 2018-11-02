@@ -34,9 +34,8 @@
     width: 80vw;
     /* height: 14vh; */
     text-align: center;
-    border: 0.1em solid white;
-    box-sizing: border-box;
-    padding: 0.3em;
+    border: 0.2rem solid white;
+    padding: 0.5em;
     margin-top: 0.4em;
 }
 #mainBox .image
