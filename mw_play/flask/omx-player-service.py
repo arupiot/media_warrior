@@ -15,9 +15,12 @@ import sys
 app = Flask(__name__,  static_folder='static')
 api = Api(app)
 
+TRACK_BASE_PATH = "/media/usb/demo/"
+AUDIO_PATH_TEST_MP4 = "5.1_AAC_Test.mp4"
+
 CORS(app)
-TRACK_ARRAY = [ {"name" : "karma", "id":"0"}, \
-                {"name":"the spell", "id":"1"}, \
+TRACK_ARRAY = [ {"name" : "02_Planets_Part1_Treatment.mlp", "id":"0"}, \
+                {"name": AUDIO_PATH_TEST_MP4, "id":"1"}, \
                 {"name":"the sound bath", "id":"2"}, \
                 {"name":"the planets", "id":"3"}, \
                 {"name":"tales of bath", "id":"4"}, \
@@ -27,8 +30,7 @@ TRACK_ARRAY = [ {"name" : "karma", "id":"0"}, \
                 {"name":"hard days night", "id":"8"}, \
                 {"name":"the comforter", "id":"9"}, \
                 {"name":"validation facial", "id":"10"}]
-AUDIO_PATH_MLP = "/opt/02_Planets_Part1_Treatment.mlp"
-AUDIO_PATH_TEST = "/opt/demo_5ch/test.mp4"
+
 # player = OMXPlayer(AUDIO_PATH_MLP, args=['--layout', '5.1', '-w', '-o', 'hdmi'])
 
 # serve the angular app
@@ -47,15 +49,15 @@ def getIdInput():
     args = parser.parse_args()
     return args
 
-def findWindows():
-    if sys.platform.startswith("win32"):
+def findArm():
+    if os.uname().machine == 'armv7l':
         return True
     return False
 
-# if findWindows() == False:
-#     from omxplayer.player import OMXPlayer
-#     from pathlib import Path
-#     from time import sleep
+if findArm():
+    from omxplayer.player import OMXPlayer
+    from pathlib import Path
+    from time import sleep
 
 class GetTrackList(Resource):
   def get(self):
@@ -69,15 +71,14 @@ class GetSingleTrack(Resource):
 
 class PlaySingleTrack(Resource):
     def get(self):
-        if findWindows() == False:
-            # player = OMXPlayer(AUDIO_PATH_TEST)
+        if findArm():
+            pathToTrack = TRACK_BASE_PATH + TRACK_ARRAY[args["id"]]["name"]
 
-            # sleep(5)
-
-            # player.quit()
-            # args = getIdInput()
+            player = OMXPlayer(pathToTrack, args=['--layout', '5.1', '-w', '-o', 'hdmi'])
+            
+            args = getIdInput()
             return jsonify("Playing track: " + TRACK_ARRAY[args["id"]]["name"]) 
-        return jsonify("cannot play tracks on windows")
+        return jsonify("You don't seem to be on a media_warrior...")
 
 
 class Stop(Resource):
