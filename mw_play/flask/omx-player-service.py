@@ -17,8 +17,6 @@ import json
 
 # Kill all old omxplayers
 
-player = None
-
 app = Flask(__name__,  static_folder='static')
 api = Api(app)
 
@@ -85,19 +83,18 @@ class PlaySingleTrack(Resource):
         global player
         if findArm():
             args = getIdInput()
+            thisTrack = None
             print('argsid: ', args["id"])
             for track in NEW_TRACK_ARRAY:
                 if track["ID"] == args["id"]:
+                    thisTrack = track
                     pathToTrack = TRACK_BASE_PATH + track["Name"]
             print("Playing: " + pathToTrack)
-            if player == None:
-                print('Spawning player')
-                pathToTrack = '/media/usb/demo/5.1_AAC_Test.mp4'
-                print('FORCE TEST: ', pathToTrack)
-                player = OMXPlayer(TEST_TRACK, args=['--layout', '5.1' '-w', '-o', 'hdmi'])
-                sleep(2.5)
-            elif player.playback_status() == 'Paused':
-                player.play()
+            
+            print('Spawning player')
+            player = OMXPlayer(pathToTrack, args=['--layout', '5.1', '-w', '-o', 'hdmi'])
+            sleep(2.5)
+            
                 
             print("metadata: " + str(player.metadata()))
             print("Duration: " + str(player.metadata()['mpris:length']/1000/1000))
@@ -106,7 +103,7 @@ class PlaySingleTrack(Resource):
             
             print("Dur after 5: " + str(player.duration()))
             
-            return jsonify("Playing track: " + TRACK_ARRAY[args["id"]]["name"] + " length: " + str(player.metadata()['mpris:length']/1000/1000))
+            return jsonify("Playing track: " + track["Name"] + " length: " + str(player.metadata()['mpris:length']/1000/1000))
         
         return jsonify("(Playing) You don't seem to be on a media_warrior...")
 
