@@ -66,9 +66,13 @@
 {
     transform: scale(2.5);
     margin-right: 1.5em;
+
     /* margin-bottom: 1em; */
     /* height: 2em; */
     /* object-fit: fill; */
+}
+.playback .mat-icon:hover {
+    cursor: pointer;
 }
 .playback .bar
 {
