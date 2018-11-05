@@ -6,21 +6,24 @@ import { HttpClient } from '@angular/common/http';
 })
 export class GetTracksService {
   constructor(private httpClient: HttpClient) { }
-  getTracks()
-  {
+
+  getTracks() {
     return this.httpClient.get('http://' + window.location.hostname + '/get-track-list');
   }
-  getSingleTrack(id)
-  {
+
+  getSingleTrack(id) {
     return this.httpClient.get('http://' + window.location.hostname + '/get-single-track?id=' + id);
   }
-  playSingleTrack(id)
-  {
+
+  playSingleTrack(id) {
     return this.httpClient.get('http://' + window.location.hostname + '/play-single-track?id=' + id);
   }
 
-  pauseSingleTrack(id)
-  {
+  pauseSingleTrack(id) {
     return this.httpClient.get('http://' + window.location.hostname + '/pause-track?id=' + id);
+  }
+
+  stopMusic() {
+    return this.httpClient.get('http://' + window.location.hostname + '/stop');
   }
 }

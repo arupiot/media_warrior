@@ -13,12 +13,14 @@ import os
 import sys
 import time
 import subprocess
+import json
 
 # Kill all old omxplayers
 
 player = None
 
 os.system("killall omxplayer.bin")
+
 
 app = Flask(__name__,  static_folder='static')
 api = Api(app)
@@ -39,7 +41,11 @@ TRACK_ARRAY = [ {"name" : "02_Planets_Part1_Treatment.mlp", "id":"0"}, \
                 {"name":"the comforter", "id":"9"}, \
                 {"name":"validation facial", "id":"10"}]
 
+NEW_TRACK_ARRAY = []
+
 # player = OMXPlayer(AUDIO_PATH_MLP, args=['--layout', '5.1', '-w', '-o', 'hdmi'])
+
+
 
 # serve the angular app
 
@@ -53,7 +59,7 @@ def serve(path):
 
 def getIdInput():
     parser = reqparse.RequestParser()
-    parser.add_argument('id', type=int, help='error with id')
+    parser.add_argument('id', help='error with id')
     args = parser.parse_args()
     return args
 
@@ -67,17 +73,25 @@ if findArm():
     from pathlib import Path
     from time import sleep
 
-class GetTrackList(Resource):
-  def get(self):
-      
-      return jsonify(TRACK_ARRAY)   
-
+class GetTrackList(Resource): 
+    def get(self): 
+        global NEW_TRACK_ARRAY
+        with open('../tracks.json') as data:
+            NEW_TRACK_ARRAY = json.load(data)
+            for track in NEW_TRACK_ARRAY:
+                track['Length'] = '5:00'  
+            return jsonify(NEW_TRACK_ARRAY)
+ 
 class GetSingleTrack(Resource):
     def get(self):
+        global NEW_TRACK_ARRAY
         args = getIdInput()
-        return jsonify(TRACK_ARRAY[args["id"]]["name"])  
+        print(args['id'])
+        for track in NEW_TRACK_ARRAY:
+            if track['ID'] == args['id']:
+                return jsonify(track["Name"])
 
-class PlaySingleTrack(Resource):
+class PlaySingleTrack(Resource):    
     def get(self):
         global player
         if findArm():
@@ -118,8 +132,8 @@ class Stop(Resource):
             os.system("killall omxplayer.bin")
             print('omxplayer processes killed!')
             
-            return jsonify("omxplayer processes killed") 
-
+            return jsonify("omxplayer processes killed")
+        return jsonify("(Killing omxplayer proc) You don't seem to be on a media_warrior...")
 
 api.add_resource(GetTrackList, '/get-track-list')
 api.add_resource(GetSingleTrack, '/get-single-track')
