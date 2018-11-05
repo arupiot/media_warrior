@@ -14,12 +14,15 @@ export class TrackControlComponent implements OnInit {
   errorResponse = '';
   id: number;
   private sub: any;
+  playing = false;
 
   constructor(
     private route: ActivatedRoute,
     private getTracksService: GetTracksService,
     private getStylesService: GetStylesService
   ) {}
+
+ 
 
   styleObject() {
     if (!this.getStylesService.getStyles()) {
@@ -29,6 +32,8 @@ export class TrackControlComponent implements OnInit {
       };
     }
   }
+
+  
 
   styleObjectBorder() {
     if (!this.getStylesService.getStyles()) {
@@ -54,6 +59,8 @@ export class TrackControlComponent implements OnInit {
     );
   }
   playMusic() {
+    this.playing = !this.playing;
+    console.log(this.playing);
     this.getTracksService.playSingleTrack(this.id).subscribe(data => {
       console.log(data);
     });
