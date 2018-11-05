@@ -18,4 +18,9 @@ export class GetTracksService {
   {
     return this.httpClient.get('http://' + window.location.hostname + '/play-single-track?id=' + id);
   }
+
+  stopMusic()
+  {
+    return this.httpClient.get('http://' + window.location.hostname + '/stop');
+  }
 }

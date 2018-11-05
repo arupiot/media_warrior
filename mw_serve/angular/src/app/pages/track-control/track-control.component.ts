@@ -64,4 +64,9 @@ export class TrackControlComponent implements OnInit {
       console.log(data);
     });
   }
+
+  stopMusic() {
+    this.getTracksService.stopMusic();
+    this.playing = false;
+  }
 }
