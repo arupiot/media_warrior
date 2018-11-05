@@ -19,27 +19,15 @@ import json
 
 player = None
 
-os.system("killall omxplayer.bin")
-
-
 app = Flask(__name__,  static_folder='static')
 api = Api(app)
 
 TRACK_BASE_PATH = "/media/usb/demo/"
 AUDIO_PATH_TEST_MP4 = "5.1_AAC_Test.mp4"
 
+TEST_TRACK = TRACK_BASE_PATH + AUDIO_PATH_TEST_MP4
+
 CORS(app)
-TRACK_ARRAY = [ {"name" : "02_Planets_Part1_Treatment.mlp", "id":"0"}, \
-                {"name": AUDIO_PATH_TEST_MP4, "id":"1"}, \
-                {"name":"the sound bath", "id":"2"}, \
-                {"name":"the planets", "id":"3"}, \
-                {"name":"tales of bath", "id":"4"}, \
-                {"name":"the good hour", "id":"5"}, \
-                {"name":"tailor made", "id":"6"}, \
-                {"name":"synaesthsia", "id":"7"}, \
-                {"name":"hard days night", "id":"8"}, \
-                {"name":"the comforter", "id":"9"}, \
-                {"name":"validation facial", "id":"10"}]
 
 NEW_TRACK_ARRAY = []
 
@@ -79,7 +67,8 @@ class GetTrackList(Resource):
         with open('../tracks.json') as data:
             NEW_TRACK_ARRAY = json.load(data)
             for track in NEW_TRACK_ARRAY:
-                track['Length'] = '5:00'  
+                track['Length'] = '5:00'
+            print(NEW_TRACK_ARRAY)
             return jsonify(NEW_TRACK_ARRAY)
  
 class GetSingleTrack(Resource):
@@ -96,10 +85,16 @@ class PlaySingleTrack(Resource):
         global player
         if findArm():
             args = getIdInput()
-            pathToTrack = TRACK_BASE_PATH + TRACK_ARRAY[args["id"]]["name"]
+            print('argsid: ', args["id"])
+            for track in NEW_TRACK_ARRAY:
+                if track["ID"] == args["id"]:
+                    pathToTrack = TRACK_BASE_PATH + track["Name"]
             print("Playing: " + pathToTrack)
             if player == None:
-                player = OMXPlayer(pathToTrack, args=['-w'])
+                print('Spawning player')
+                pathToTrack = '/media/usb/demo/5.1_AAC_Test.mp4'
+                print('FORCE TEST: ', pathToTrack)
+                player = OMXPlayer(TEST_TRACK, args=['--layout', '5.1' '-w', '-o', 'hdmi'])
                 sleep(2.5)
             elif player.playback_status() == 'Paused':
                 player.play()
@@ -111,7 +106,8 @@ class PlaySingleTrack(Resource):
             
             print("Dur after 5: " + str(player.duration()))
             
-            return jsonify("Playing track: " + TRACK_ARRAY[args["id"]]["name"] + " length: " + str(player.metadata()['mpris:length']/1000/1000)) 
+            return jsonify("Playing track: " + TRACK_ARRAY[args["id"]]["name"] + " length: " + str(player.metadata()['mpris:length']/1000/1000))
+        
         return jsonify("(Playing) You don't seem to be on a media_warrior...")
 
 class PauseTrack(Resource):
