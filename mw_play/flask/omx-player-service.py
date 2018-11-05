@@ -75,10 +75,20 @@ class PlaySingleTrack(Resource):
             
             args = getIdInput()
             pathToTrack = TRACK_BASE_PATH + TRACK_ARRAY[args["id"]]["name"]
+            print("Playing: " + pathToTrack)
 
-            player = OMXPlayer(pathToTrack, args=['--layout', '5.1', '-w', '-o', 'hdmi'])
+            player = OMXPlayer(pathToTrack, args=['-w'])
             return jsonify("Playing track: " + TRACK_ARRAY[args["id"]]["name"]) 
-        return jsonify("You don't seem to be on a media_warrior...")
+        return jsonify("(Playing) You don't seem to be on a media_warrior...")
+
+class PauseSingleTrack(Resource):
+    def get(self):
+        if findArm():
+            # For the moment, kill every omxplayer process
+            os.system('killall omxplayer.bin')
+            
+            return jsonify("Player processes killed...") 
+        return jsonify("(Pausing) You don't seem to be on a media_warrior...")
 
 
 class Stop(Resource):
@@ -89,6 +99,7 @@ class Stop(Resource):
 api.add_resource(GetTrackList, '/get-track-list')
 api.add_resource(GetSingleTrack, '/get-single-track')
 api.add_resource(PlaySingleTrack, '/play-single-track')
+api.add_resource(PauseSingleTrack, '/pause-track')
 api.add_resource(Stop, '/stop')
 
 

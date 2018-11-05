@@ -33,8 +33,6 @@ export class TrackControlComponent implements OnInit {
     }
   }
 
-  
-
   styleObjectBorder() {
     if (!this.getStylesService.getStyles()) {
     return {
@@ -58,6 +56,7 @@ export class TrackControlComponent implements OnInit {
       }
     );
   }
+
   playMusic() {
     this.playing = !this.playing;
     console.log(this.playing);
@@ -65,4 +64,13 @@ export class TrackControlComponent implements OnInit {
       console.log(data);
     });
   }
+
+  pauseMusic() {
+    this.playing = !this.playing;
+    console.log(this.playing);
+    this.getTracksService.pauseSingleTrack(this.id).subscribe(data => {
+      console.log(data);
+    });
+  }
+
 }
