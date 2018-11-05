@@ -11,6 +11,8 @@ from flask_restful import reqparse
 
 import os
 import sys
+import time
+import subprocess
 
 app = Flask(__name__,  static_folder='static')
 api = Api(app)
@@ -78,7 +80,15 @@ class PlaySingleTrack(Resource):
             print("Playing: " + pathToTrack)
 
             player = OMXPlayer(pathToTrack, args=['-w'])
-            return jsonify("Playing track: " + TRACK_ARRAY[args["id"]]["name"]) 
+            sleep(2.5)
+            print("metadata: " + str(player.metadata()))
+            print("Duration: " + str(player.metadata()['mpris:length']/1000/1000))
+
+            sleep(5)
+            
+            print("Dur after 5: " + str(player.duration()))
+            
+            return jsonify("Playing track: " + TRACK_ARRAY[args["id"]]["name"] + " length: " + str(player.metadata()['mpris:length']/1000/1000)) 
         return jsonify("(Playing) You don't seem to be on a media_warrior...")
 
 class PauseSingleTrack(Resource):
@@ -88,7 +98,7 @@ class PauseSingleTrack(Resource):
             os.system("killall omxplayer.bin")
             print('omxplayer processes killed!')
             
-            return jsonify("omxplayer killed") 
+            return jsonify("omxplayer processes killed") 
         return jsonify("(Pausing) You don't seem to be on a media_warrior...")
 
 
