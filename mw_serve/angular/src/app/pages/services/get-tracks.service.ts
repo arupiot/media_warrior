@@ -21,6 +21,6 @@ export class GetTracksService {
 
   pauseSingleTrack(id)
   {
-    return this.httpClient.get('http://' + window.location.hostname + '/pause-single-track?id=' + id);
+    return this.httpClient.get('http://' + window.location.hostname + '/pause-track?id=' + id);
   }
 }
