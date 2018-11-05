@@ -11,6 +11,7 @@ from flask_restful import reqparse
 
 import os
 import sys
+import json
 
 app = Flask(__name__,  static_folder='static')
 api = Api(app)
@@ -29,7 +30,11 @@ TRACK_ARRAY = [ {"name" : "karma", "id":"0"}, \
                 {"name":"validation facial", "id":"10"}]
 AUDIO_PATH_MLP = "/opt/02_Planets_Part1_Treatment.mlp"
 AUDIO_PATH_TEST = "/opt/demo_5ch/test.mp4"
+
+
 # player = OMXPlayer(AUDIO_PATH_MLP, args=['--layout', '5.1', '-w', '-o', 'hdmi'])
+
+
 
 # serve the angular app
 
@@ -57,10 +62,13 @@ def findWindows():
 #     from pathlib import Path
 #     from time import sleep
 
-class GetTrackList(Resource):
-  def get(self):
-      
-      return jsonify(TRACK_ARRAY)   
+class GetTrackList(Resource): 
+    def get(self):
+        with open('../tracks.json') as data:
+            tracks = json.load(data)
+            for track in tracks:
+                track['Length'] = '5:00'
+            return tracks
 
 class GetSingleTrack(Resource):
     def get(self):
