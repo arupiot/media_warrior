@@ -12,7 +12,7 @@ import { GetStylesService } from '../services/get-styles.service';
 export class TrackControlComponent implements OnInit {
   serverData: Observable<any>;
   errorResponse = '';
-  id: number;
+  id: string;
   private sub: any;
   playing = false;
 
@@ -45,12 +45,12 @@ export class TrackControlComponent implements OnInit {
   ngOnInit() {
 
     this.sub = this.route.params.subscribe(params => {
-      this.id = +params['id'];
+      this.id = params['id'];
     });
     this.getTracksService.getSingleTrack(this.id).subscribe(
       (data: any) => {
-        console.log('from service: ', data);
-        this.serverData = of(data);
+        console.log('from (singelTrack) service: ', data);
+        this.serverData = of(data.slice(0, data.length - 4));
       },
       (err: any) => {
         console.log('error', err);
@@ -60,7 +60,6 @@ export class TrackControlComponent implements OnInit {
   }
   playMusic() {
     this.playing = !this.playing;
-    console.log(this.playing);
     this.getTracksService.playSingleTrack(this.id).subscribe(data => {
       console.log(data);
     });

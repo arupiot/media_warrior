@@ -31,6 +31,7 @@ TRACK_ARRAY = [ {"name" : "karma", "id":"0"}, \
 AUDIO_PATH_MLP = "/opt/02_Planets_Part1_Treatment.mlp"
 AUDIO_PATH_TEST = "/opt/demo_5ch/test.mp4"
 
+NEW_TRACK_ARRAY = []
 
 # player = OMXPlayer(AUDIO_PATH_MLP, args=['--layout', '5.1', '-w', '-o', 'hdmi'])
 
@@ -48,7 +49,7 @@ def serve(path):
 
 def getIdInput():
     parser = reqparse.RequestParser()
-    parser.add_argument('id', type=int, help='error with id')
+    parser.add_argument('id', help='error with id')
     args = parser.parse_args()
     return args
 
@@ -63,19 +64,24 @@ def findWindows():
 #     from time import sleep
 
 class GetTrackList(Resource): 
-    def get(self):
+    def get(self): 
+        global NEW_TRACK_ARRAY
         with open('../tracks.json') as data:
-            tracks = json.load(data)
-            for track in tracks:
-                track['Length'] = '5:00'
-            return tracks
-
+            NEW_TRACK_ARRAY = json.load(data)
+            for track in NEW_TRACK_ARRAY:
+                track['Length'] = '5:00'  
+            return jsonify(NEW_TRACK_ARRAY)
+ 
 class GetSingleTrack(Resource):
     def get(self):
+        global NEW_TRACK_ARRAY
         args = getIdInput()
-        return jsonify(TRACK_ARRAY[args["id"]]["name"])  
+        print(args['id'])
+        for track in NEW_TRACK_ARRAY:
+            if track['ID'] == args['id']:
+                return jsonify(track["Name"])
 
-class PlaySingleTrack(Resource):
+class PlaySingleTrack(Resource):    
     def get(self):
         if findWindows() == False:
             # player = OMXPlayer(AUDIO_PATH_TEST)
