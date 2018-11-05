@@ -85,9 +85,10 @@ class PauseSingleTrack(Resource):
     def get(self):
         if findArm():
             # For the moment, kill every omxplayer process
-            os.system('killall omxplayer.bin')
+            os.system("killall omxplayer.bin")
+            print('omxplayer processes killed!')
             
-            return jsonify("Player processes killed...") 
+            return jsonify("omxplayer killed") 
         return jsonify("(Pausing) You don't seem to be on a media_warrior...")
 
 
