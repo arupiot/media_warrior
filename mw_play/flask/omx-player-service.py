@@ -16,6 +16,8 @@ import subprocess
 
 # Kill all old omxplayers
 
+player = None
+
 os.system("killall omxplayer.bin")
 
 app = Flask(__name__,  static_folder='static')
@@ -77,6 +79,7 @@ class GetSingleTrack(Resource):
 
 class PlaySingleTrack(Resource):
     def get(self):
+        global player
         if findArm():
             
             args = getIdInput()
@@ -97,6 +100,7 @@ class PlaySingleTrack(Resource):
 
 class PauseTrack(Resource):
     def get(self):
+        global player
         if findArm():
             # Pause the track
             if player.can_pause():
