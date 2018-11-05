@@ -81,13 +81,15 @@ class PlaySingleTrack(Resource):
     def get(self):
         global player
         if findArm():
-            
             args = getIdInput()
             pathToTrack = TRACK_BASE_PATH + TRACK_ARRAY[args["id"]]["name"]
             print("Playing: " + pathToTrack)
-
-            player = OMXPlayer(pathToTrack, args=['-w'])
-            sleep(2.5)
+            if player == None:
+                player = OMXPlayer(pathToTrack, args=['-w'])
+                sleep(2.5)
+            elif player.playback_status() == 'Paused':
+                player.play()
+                
             print("metadata: " + str(player.metadata()))
             print("Duration: " + str(player.metadata()['mpris:length']/1000/1000))
 
