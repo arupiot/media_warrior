@@ -72,11 +72,11 @@ class GetSingleTrack(Resource):
 class PlaySingleTrack(Resource):
     def get(self):
         if findArm():
+            
+            args = getIdInput()
             pathToTrack = TRACK_BASE_PATH + TRACK_ARRAY[args["id"]]["name"]
 
             player = OMXPlayer(pathToTrack, args=['--layout', '5.1', '-w', '-o', 'hdmi'])
-            
-            args = getIdInput()
             return jsonify("Playing track: " + TRACK_ARRAY[args["id"]]["name"]) 
         return jsonify("You don't seem to be on a media_warrior...")
 
