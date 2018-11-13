@@ -22,8 +22,6 @@ export class TrackControlComponent implements OnInit {
     private getStylesService: GetStylesService
   ) {}
 
- 
-
   styleObject() {
     if (!this.getStylesService.getStyles()) {
       return {
