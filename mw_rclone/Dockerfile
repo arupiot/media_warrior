@@ -1,11 +1,11 @@
-# sample build command: sudo docker build -t media-warrior-base .
+# sample build command: sudo docker build -t mw_rclone .
 # sample run command: sudo docker run -d -p 80:80 arupiot/media_warrior_base:develop
 # running resin.io rpi image on ubuntu with qemu
 # (but) resin images have qemu built in anyway...
 # sudo docker run -v /usr/bin/qemu-arm-static:/usr/bin/qemu-arm-static --rm -ti resin/rpi-raspbian
 
-# get resin.io rpi image. Has QEMU built in
-FROM arupiot/mw_rpi_base
+# get media warrior rpi image. (QEMU/Python/dbus/etc)
+FROM mw_rpi_base
 
 RUN [ "cross-build-start" ]
 # ADD media-warrior-07dec249ae7a.json /opt/GCP
@@ -21,9 +21,8 @@ RUN [ "cross-build-start" ]
 # RUN rclone lsf arupiot-expect:mlp_samples_test
 # Sync songs from the gdrive
 
-RUN apt-get update && \
-    apt-get install git && \
-    git clone --single-branch -b develop https://github.com/arupiot/media_warrior.git /opt/media_warrior && \
+RUN apt-get install git && \
+    git clone --single-branch -b mw-23 https://github.com/arupiot/media_warrior.git /opt/media_warrior && \
     apt-get -y install expect && \
     apt-get install man && \
     apt-get install p7zip-full && \
