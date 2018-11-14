@@ -21,6 +21,8 @@ RUN [ "cross-build-start" ]
 # RUN rclone lsf arupiot-expect:mlp_samples_test
 # Sync songs from the gdrive
 
+RUN mkdir /media/usb
+
 RUN apt-get install git && \
     git clone --single-branch -b mw-23 https://github.com/arupiot/media_warrior.git /opt/media_warrior && \
     apt-get -y install expect && \

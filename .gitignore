@@ -107,6 +107,9 @@ venv.bak/
 
 .vscode/
 
+# docker compose test dir
+composeTest/
+
 #Mac
 
 .DS_Store

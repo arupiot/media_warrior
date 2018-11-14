@@ -1,0 +1,8 @@
+version: '1'
+services:
+  mw_rpi_base:
+    build: ../
+  mw_rclone:
+    build: ../mw_rclone
+  mw_play:
+    build: ../mw_play/docker
