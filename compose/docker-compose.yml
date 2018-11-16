@@ -3,7 +3,7 @@ services:
   mw_rclone:
     build: ../mw_rclone/
     volumes:
-       - /media/usb/:/media/usb/rclone
+       - /media/usb/rclone/:/media/usb/rclone
   # mw_play:
     #build: ../mw_play/docker/
     # volumes:
