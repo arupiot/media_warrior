@@ -57,7 +57,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl -L https://rclone.org/install.sh | bash && \
     rclone --version
 # expect rclone1.43.1_expect.sh
-# rclone sync arupiot-expect:mlp_samples_test /opt/media_warrior/mlp_samples -v -P
+# rclone sync arupiot-expect:mlp_samples_test /opt/usb -v -P
 
 # TODO:
 # set up rclone cron job
