@@ -92,7 +92,7 @@ class PlaySingleTrack(Resource):
             print("Playing: " + pathToTrack)
             
             print('Spawning player')
-            player = OMXPlayer(pathToTrack, args=['--layout', '5.1', '-w', '-o', 'hdmi'])
+            player = OMXPlayer(pathToTrack, args=['-w', '-o', 'both'])
             sleep(2.5)
             
                 
