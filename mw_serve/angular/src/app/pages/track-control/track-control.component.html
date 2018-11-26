@@ -1,0 +1,17 @@
+
+<div class="container" [ngStyle]="styleObjectBorder()">
+  <div class="trackNameBox" [ngStyle]="styleObject()">
+    <div class="trackNameText">{{serverData | async}}</div>
+  </div>
+  <div class="treatment" [ngStyle]="styleObject()">
+    <div class="text">Treatment</div>
+    <div class="playback">
+      <!-- <div class="play"><mat-icon>play_arrow</mat-icon></div> -->
+      <mat-icon *ngIf="playing; else notPlaying" (click)="stopMusic()">stop</mat-icon>
+      <ng-template #notPlaying>
+        <mat-icon (click)="playMusic()">play_arrow </mat-icon>
+      </ng-template>
+      <div class="bar"></div>
+    </div>
+  </div>
+</div>

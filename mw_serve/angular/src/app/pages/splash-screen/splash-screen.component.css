@@ -1,0 +1,46 @@
+#mainBox
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+    height: 100vh;
+
+    text-transform: uppercase;
+    color: white;
+    
+    
+    background: #000000;
+    border: 0.9rem solid #ed028c;
+    box-sizing: border-box;
+
+    font-family: 'Lush';
+    src: url('./../../fonts/Lush.ttf') format('truetype');
+    font-weight: bold;
+}
+#mainBox .flexBox
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    font-size: 2.5em;
+}
+#mainBox .flexBox > :nth-child(1n)
+{
+    width: 80vw;
+    /* height: 14vh; */
+    text-align: center;
+    border: 0.2rem solid white;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    margin-top: 0.4em;
+}
+#mainBox .image
+{
+    padding-top: 4rem;
+    transform: scale(2);
+}

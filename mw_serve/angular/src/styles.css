@@ -1,0 +1,44 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+body {
+    margin: 0;
+    border: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    color: white;
+    text-decoration: none; /* no underline */
+}
+
+#mainBox
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    min-height: 100vh;
+
+    text-transform: uppercase;
+    color: white;
+    
+    
+    background: #000000;
+    /* border: 0.9em solid #ed028c; */
+    box-sizing: border-box;
+
+    font-family: 'Lush';
+    src: url('app/fonts/Lush.ttf') format('truetype');
+    font-weight: bold;
+}
+
+@font-face
+{
+    font-family: 'Lush';
+    src: url('app/fonts/Lush.ttf') format('truetype');
+    font-weight: bold;
+}

@@ -1,0 +1,14 @@
+version: '3'
+services:
+  mw_rclone:
+    build: ../mw_rclone/
+    volumes:
+       - /media/usb/rclone/:/media/usb/rclone
+  # mw_play:
+    #build: ../mw_play/docker/
+    # volumes:
+    #    - /media/usb:/opt/usb/tracks
+    #    - /opt/vc
+    # command: python3 omx-player-service.py
+# volumes:
+#    - /media/digital-iot/0C7F-7E20/docker-compose-test:/opt/
