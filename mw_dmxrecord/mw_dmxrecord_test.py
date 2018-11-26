@@ -15,11 +15,14 @@ from time import sleep
 from os.path import join, splitext
 from os import listdir
 import math, time, datetime
+from numpy import array, zeros, array_equal
 
 tfIDs = [
 ]
 
 tfConnect = True
+
+prevFrame = zeros(512)
 
 if tfConnect:
     tfIDs = []
@@ -143,7 +146,17 @@ def cb_enumerate(uid, connected_uid, position, hardware_version, firmware_versio
 
 
 def dmxread_callback(frame, frame_no):
-    print(frame, frame_no)
+    global prevFrame
+    # if prevFrame. == 0:
+    #     prevFrame = array(frame)
+    frameArray = array(frame)
+    if not array_equal(prevFrame,frameArray):
+        if frame != None:
+            print(frame)
+    prevFrame = array(frame)
+    # if prevframe-frame:
+    #     print(frame, frame_no)
+    # prev
     # print("callback called")
 
 if __name__ == "__main__":
@@ -177,7 +190,7 @@ if __name__ == "__main__":
                         dmx = BrickletDMX(tf[0], ipcon)
                         dmx.set_dmx_mode(BrickletDMX.DMX_MODE_SLAVE)
                         dmx.register_callback(BrickletDMX.CALLBACK_FRAME, dmxread_callback)
-                        dmx.set_frame_callback_config(True, True, True, True)
+                        dmx.set_frame_callback_config(False, False, True, False)
 
                     dmxcount += 1
 
