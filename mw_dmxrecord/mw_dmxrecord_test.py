@@ -4,28 +4,40 @@
 HOST = "127.0.0.1"
 PORT = 4223
 
-debug = True
+debug = False
 verbose = True
 reading_interval = 1.0
 
 from tinkerforge.ip_connection import IPConnection
 from tinkerforge.bricklet_dmx import BrickletDMX
 
-from time import sleep
+from time import sleep, perf_counter
 from os.path import join, splitext
 from os import listdir
 import math, time, datetime
 from numpy import array, zeros, array_equal
+import pysrt
+import signal
+import sys
+from pysrt import SubRipFile
+from pysrt import SubRipItem
+from pysrt import SubRipTime
 
-tfIDs = [
-]
+srtFilename = "output.srt"
+srtFile = SubRipFile()
+
+tfIDs = []
 
 tfConnect = True
 
 prevFrame = zeros(512)
+prevTime = 0
+subs = []
 
-if tfConnect:
-    tfIDs = []
+ipcon = IPConnection()
+
+# if tfConnect:
+#     tfIDs = []
 
 deviceIdentifiersList = [
 [11, "DC Brick",""],
@@ -146,22 +158,39 @@ def cb_enumerate(uid, connected_uid, position, hardware_version, firmware_versio
 
 
 def dmxread_callback(frame, frame_no):
-    global prevFrame
+    global prevFrame, prevTime, subs, srtFile
     # if prevFrame. == 0:
     #     prevFrame = array(frame)
     frameArray = array(frame)
     if not array_equal(prevFrame,frameArray):
         if frame != None:
-            print(frame)
+            item = SubRipItem(1, text="DMX1"+str(frame))
+            item.shift(seconds=prevTime)
+            item.end.shift(seconds=perf_counter()-prevTime)
+            print(item)
+            subs.append(item)
+            srtFile.append(item)
+            prevTime = perf_counter()
     prevFrame = array(frame)
     # if prevframe-frame:
     #     print(frame, frame_no)
     # prev
     # print("callback called")
 
+def signal_handler(sig, frame):
+    global subs, tfConnect, ipcon, srtFile
+    print(subs, len(subs))
+    encoding="utf_8"
+
+    srtFile.save(srtFilename, encoding=encoding)
+
+    if tfConnect:
+        ipcon.disconnect()
+    sys.exit(0)
+
 if __name__ == "__main__":
-    # Create connection and connect to brickd
-    ipcon = IPConnection()
+    # global ipcon
+
     ipcon.connect(HOST, PORT)
 
     # Register Enumerate Callback
@@ -191,11 +220,9 @@ if __name__ == "__main__":
                         dmx.set_dmx_mode(BrickletDMX.DMX_MODE_SLAVE)
                         dmx.register_callback(BrickletDMX.CALLBACK_FRAME, dmxread_callback)
                         dmx.set_frame_callback_config(False, False, True, False)
+                        signal.signal(signal.SIGINT, signal_handler)
 
                     dmxcount += 1
 
     while True:
         pass
-
-    if tfConnect:
-        ipcon.disconnect()
